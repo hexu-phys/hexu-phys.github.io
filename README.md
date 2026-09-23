@@ -1,4 +1,3 @@
-# hexu-phys.github.io
 # Personal Website — hexu
 
 This repository hosts my personal academic website, published via GitHub Pages.
@@ -26,22 +25,19 @@ Live site: https://hexu-phys.github.io
 
 ## How to view locally
 
-Option A — just open the file:
-    open index.html          # macOS
-    start index.html         # Windows
+Option A — just open the file:    start index.html
 
-Option B — run a local server (recommended, avoids file:// quirks):
-    python3 -m http.server 8000
-    # then visit http://localhost:8000
+Option B — run a local server:    python3 -m http.server 8000,
+    then visit http://localhost:8000
 
 ## How to update the encrypted page
 
-1.编辑`private-src.html` (plaintext, **never commit this file**).
+1.edit`private-src.html` (plaintext, **never commit this file**).
 2. Run:
        npx staticrypt private-src.html -p "YOUR_PASSWORD" -o private.html
 3. Commit only `private.html`.
 
-##部署
+## Setup
 
-Push to `main`. GitHub Pages auto-publishes within ~1 minute.
+Push to `main`. GitHub Pages.
 Settings → Pages → Source: `Deploy from a branch` → `main` / `root`.
