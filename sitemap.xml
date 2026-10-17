@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 中文注释：sitemap.xml —— 手动维护的"当前对外可见"页面清单。
+     硬性要求：这里的 URL 用绝对地址（与 canonical / og:url 一致），
+     但页面内部的导航/资源链接仍必须是相对路径。
+     当前站点只公开 6 个页面：首页、Projects 总览、两个项目详情页、版权与使用条款、CV。
+     不列入的页面有三类（都仍在仓库里，只是不出现在导航与 sitemap 中）：
+       1) cv.html / project.html / private.html：旧版兼容跳转页（noindex）；
+       2) research/ 全部分支：Research 栏目尚未定稿，暂时隐去（见 NOTES.zh.md 第 15 节）；
+       3) notes/index.html：Notes 栏目同样暂时隐去。
+     恢复某个栏目时：把 URL 加回这里，并在首页 / 项目页 / CV 页的导航里加回 <li>，
+     同时把 tools/check-site.mjs 里的 HIDDEN_PAGES 规则一起改掉。 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hexu-phys.github.io/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://hexu-phys.github.io/projects/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://hexu-phys.github.io/projects/phase-space-network/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hexu-phys.github.io/projects/langevin-coupling/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hexu-phys.github.io/copyright/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://hexu-phys.github.io/cv/</loc>
+    <changefreq>semiannually</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>

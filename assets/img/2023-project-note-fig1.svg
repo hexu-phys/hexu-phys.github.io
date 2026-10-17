@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img"
+     aria-labelledby="fig3-title fig3-desc" width="720" height="340">
+  <title id="fig3-title">Schematic numerical artifact versus control parameter</title>
+  <desc id="fig3-desc">A log-scale schematic plot in which the size of a numerical artifact decreases as a control parameter is tightened, crossing below a horizontal tolerance line.</desc>
+
+  <!-- 中文注释：
+       纯 SVG 示意图：数值假象随控制参数收紧而衰减，并穿过容差线。
+       所有数值为示意，不含真实数据。
+  -->
+  <style>
+    /* 中文注释：与全站配色一致的 SVG 内部样式 */
+    .bg { fill: #ffffff; }
+    .frame { fill: none; stroke: #e5e7eb; stroke-width: 1; }
+    .axis { stroke: #1f2328; stroke-width: 1; }
+    .grid { stroke: #e5e7eb; stroke-width: 1; stroke-dasharray: 2 4; }
+    .curve { fill: none; stroke: #1a5fb4; stroke-width: 1.5; }
+    .tol { stroke: #6b7280; stroke-width: 1; stroke-dasharray: 5 4; }
+    .point { fill: #1a5fb4; }
+    .lbl { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 11.5px; fill: #6b7280; }
+    .axis-title { font-family: Georgia, "Times New Roman", serif; font-size: 13px; fill: #1f2328; }
+    .mark { stroke: #1f2328; stroke-width: 1; }
+    .panel { fill: #f8f9fa; stroke: #e5e7eb; stroke-width: 1; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="720" height="340"/>
+
+  <rect class="frame" x="80" y="36" width="520" height="240" rx="6"/>
+
+  <!-- 中文注释：网格 -->
+  <g>
+    <line class="grid" x1="80" y1="96" x2="600" y2="96"/>
+    <line class="grid" x1="80" y1="156" x2="600" y2="156"/>
+    <line class="grid" x1="80" y1="216" x2="600" y2="216"/>
+    <line class="grid" x1="184" y1="36" x2="184" y2="276"/>
+    <line class="grid" x1="288" y1="36" x2="288" y2="276"/>
+    <line class="grid" x1="392" y1="36" x2="392" y2="276"/>
+    <line class="grid" x1="496" y1="36" x2="496" y2="276"/>
+  </g>
+
+  <!-- 中文注释：坐标轴 -->
+  <line class="axis" x1="80" y1="276" x2="600" y2="276"/>
+  <line class="axis" x1="80" y1="36" x2="80" y2="276"/>
+
+  <!-- 中文注释：衰减曲线 -->
+  <path class="curve" d="M96 62 L144 92 L192 128 L240 164 L288 196 L336 222 L384 240 L432 252 L480 260 L528 264 L576 267"/>
+  <g>
+    <circle class="point" cx="96" cy="62" r="3"/>
+    <circle class="point" cx="192" cy="128" r="3"/>
+    <circle class="point" cx="288" cy="196" r="3"/>
+    <circle class="point" cx="384" cy="240" r="3"/>
+    <circle class="point" cx="480" cy="260" r="3"/>
+    <circle class="point" cx="576" cy="267" r="3"/>
+  </g>
+
+  <!-- 中文注释：容差线（示意阈值） -->
+  <line class="tol" x1="80" y1="250" x2="600" y2="250"/>
+  <text class="lbl" x="88" y="244">measurement tolerance</text>
+
+  <!-- 中文注释：阈值交点标记 -->
+  <line class="mark" x1="360" y1="250" x2="360" y2="276"/>
+  <text class="lbl" x="356" y="292">recommended setting</text>
+
+  <!-- 中文注释：刻度标签（通用符号） -->
+  <g class="lbl" text-anchor="middle">
+    <text x="96" y="294">coarse</text>
+    <text x="336" y="294">&#8594;</text>
+    <text x="576" y="294">fine</text>
+  </g>
+  <g class="lbl" text-anchor="end">
+    <text x="70" y="70">large</text>
+    <text x="70" y="160">moderate</text>
+    <text x="70" y="262">negligible</text>
+  </g>
+
+  <!-- 中文注释：轴标题 -->
+  <text class="axis-title" x="340" y="326" text-anchor="middle">control parameter  (schematic)</text>
+  <text class="axis-title" x="24" y="156" text-anchor="middle" transform="rotate(-90 24 156)">artifact size</text>
+
+  <!-- 中文注释：右侧说明面板 -->
+  <g>
+    <rect class="panel" x="624" y="36" width="76" height="240" rx="6"/>
+    <text class="lbl" x="634" y="60">Shape of</text>
+    <text class="lbl" x="634" y="76">the effect,</text>
+    <text class="lbl" x="634" y="92">not its</text>
+    <text class="lbl" x="634" y="108">magnitude.</text>
+    <text class="lbl" x="634" y="140">Values are</text>
+    <text class="lbl" x="634" y="156">illustrative</text>
+    <text class="lbl" x="634" y="172">and are not</text>
+    <text class="lbl" x="634" y="188">taken from</text>
+    <text class="lbl" x="634" y="204">any project</text>
+    <text class="lbl" x="634" y="220">dataset.</text>
+  </g>
+</svg>

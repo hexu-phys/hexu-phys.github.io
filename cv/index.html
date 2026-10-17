@@ -1,0 +1,280 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：网页版简历（CV）。内容完全按 assets/cv.pdf（本人真实简历）重写。
+  分区：Education / Scholarships and Awards / Research Experience / Skills。
+  维护要点：
+  1) 版式基调：剑桥的学历与成绩放在最前（Education 第一栏、Awards 第二栏），
+     2026 年 9 月之前的 RA / 研究经历按本人要求"简单带过"（每条 1–2 行）。
+  2) <body class="cv-page"> 是打印样式的开关：css/style.css 末尾的 @media print
+     只在 cv-page 上生效（去掉导航/按钮/颜色、字号调小、条目避免跨页断裂）。
+  3) 网页版按本人要求不写手机号；其余信息（邮箱、成绩、奖项、技能）与 PDF 一致。
+     若 PDF 更新，请同步这一页，并把下面的 "Last updated" 改成新的月份。
+  4) 页面上不出现中文（中文全名只在首页 <h1> 出现一次）；
+     不写 Publications 栏目：目前没有已发表论文，宁可不写也不写 "in preparation"。
+  5) 数字（74/100、112/545、19/129 等）与 PDF 原文逐字一致，不要凭印象改写。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV &mdash; Xu He</title>
+  <meta name="description" content="Curriculum vitae of Xu He: education at the University of Cambridge, research experience at HKUST and DAMTP, awards, and technical skills.">
+  <link rel="canonical" href="https://hexu-phys.github.io/cv/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="CV &mdash; Xu He">
+  <meta property="og:description" content="Education, research experience, awards, and technical skills.">
+  <meta property="og:url" content="https://hexu-phys.github.io/cv/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="cv-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Xu He</h1>
+      <p class="identity">Research Assistant, Physics Department &mdash; HKUST</p>
+      <p class="contact-line">
+        <a href="mailto:hexu@ust.hk">hexu@ust.hk</a>
+        <span class="sep">|</span>
+        <a href="mailto:xh339@cantab.ac.uk">xh339@cantab.ac.uk</a>
+        <span class="sep">|</span>
+        <a href="mailto:hexu879109462@gmail.com">hexu879109462@gmail.com</a>
+      </p>
+
+      <!-- 中文注释：导航与首页保持一致：暂时只有 Home / Projects / CV -->
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="index.html" aria-current="page">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- 中文注释：Download CV 直链指向真实的 assets/cv.pdf，加 download 属性；打印时自动隐藏 -->
+      <p class="pdf-actions">
+        <a class="btn" href="../assets/cv.pdf" download>Download CV (PDF)</a>
+        <span class="muted">Last updated: September 2026</span>
+      </p>
+      <p class="pdf-hint no-print">
+        A web version of the CV follows below. The PDF is the authoritative copy for
+        applications.
+      </p>
+
+      <!-- 中文注释：Education 放在最前：剑桥的学历与成绩是这份简历最需要被看到的部分 -->
+      <section aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">Master of Mathematics (M.Math)</h3>
+              <span class="entry-meta">Sep 2025 &ndash; Jul 2026</span>
+            </div>
+            <p class="entry-desc">
+              Christ's College, University of Cambridge, Cambridge, United Kingdom.
+            </p>
+            <p class="muted">Part III: First with Merit (74/100).</p>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">Bachelor of Arts (BA) in Natural Sciences</h3>
+              <span class="entry-meta">Sep 2022 &ndash; Jul 2025</span>
+            </div>
+            <p class="entry-desc">
+              Christ's College, University of Cambridge, Cambridge, United Kingdom.
+            </p>
+            <p class="muted">
+              First Class throughout. Part IA 71.4/100; Part IB 112/545;
+              Part II 78.8/100 (19/129).
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 中文注释：奖项紧随学历，同样属于"剑桥阶段"的硬信息 -->
+      <section aria-labelledby="awards-heading">
+        <h2 id="awards-heading">Scholarships and Awards</h2>
+        <ul>
+          <li>
+            Greig Prize, Christ's College, University of Cambridge
+            <span class="muted">&middot; 2025</span>
+          </li>
+          <li>
+            College Scholar, Christ's College, University of Cambridge
+            <span class="muted">&middot; 2022&ndash;2026</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 中文注释：研究经历按时间倒序。当前 RA 工作写 2 条 bullet；
+           2026 年 9 月之前的经历按本人要求简单带过（1–2 行）。
+           只写方法与问题，不写具体数值结果与投稿状态。 -->
+      <section aria-labelledby="experience-heading">
+        <h2 id="experience-heading">Research Experience</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">Research Assistant &mdash; Yilong Han Lab</h3>
+              <span class="entry-meta">Sep 2026 &ndash; Aug 2027</span>
+            </div>
+            <p class="entry-desc">
+              Department of Physics, The Hong Kong University of Science and
+              Technology (HKUST), Hong Kong SAR.
+            </p>
+            <ul>
+              <li>
+                Proved that phase-space networks for systems with local correlations
+                admit a universal Gaussian spectrum.
+              </li>
+              <li>
+                Computed and simulated Langevin dynamics for the coupling of hexatic
+                and glassy phases in two-dimensional colloidal disks, in collaboration
+                with experimentalists; found that correlations oscillate in these
+                systems.
+              </li>
+            </ul>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">
+                M.Math Part III Essay &mdash; Pattern formation in mixtures of active
+                and passive particles
+              </h3>
+              <span class="entry-meta">Mar 2026 &ndash; May 2026</span>
+            </div>
+            <p class="entry-desc">
+              Department of Applied Mathematics and Theoretical Physics (DAMTP),
+              University of Cambridge. Supervisor: Prof. Robert Jack.
+            </p>
+            <ul>
+              <li>
+                Investigated the breakdown of the equilibrium spinodal&ndash;binodal
+                relationship in active matter, building on the reciprocal
+                Cahn&ndash;Hilliard model, its non-equilibrium extensions, and the
+                active&ndash;passive lattice gas.
+              </li>
+              <li>
+                Showed that a generalised free energy enforces a one-to-one
+                correspondence between the stationary spinodal and binodal in scalar
+                and reducible multicomponent systems, and identified parameter regimes
+                in which linear instability persists outside global phase separation.
+              </li>
+            </ul>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">
+                Research Assistant &mdash; Generative models for inverse problems in
+                string theory
+              </h3>
+              <span class="entry-meta">Jul 2025 &ndash; Sep 2025</span>
+            </div>
+            <p class="entry-desc">
+              DAMTP, University of Cambridge. Supervisor: Prof. Krippendorf.
+            </p>
+            <ul>
+              <li>
+                Adapted methods from image generation to reconstruct eight-dimensional
+                flux vectors in string theory flux vacua, implementing and fine-tuning
+                latent diffusion models (LDM) and continuous conditional diffusion
+                models (CCDM) in PyTorch.
+              </li>
+              <li>
+                Worked on model design, hyperparameter optimisation, and the
+                preprocessing of high-dimensional discrete data.
+              </li>
+            </ul>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">
+                Research project &mdash; Theory of the structural colour of Siler
+                collingwoodi
+              </h3>
+              <span class="entry-meta">Jul 2023 &ndash; Aug 2024</span>
+            </div>
+            <p class="entry-desc">
+              With Huize Gao, Zhang Wei Lab, School of Life Sciences, Peking
+              University.
+            </p>
+            <ul>
+              <li>
+                Identified systematic errors in classical optical models of chitin
+                layers through simulation and theoretical analysis, and validated
+                observational data by wavefront and mode analysis.
+              </li>
+            </ul>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">Summer school participant</h3>
+              <span class="entry-meta">Jul 2023 &ndash; Aug 2023</span>
+            </div>
+            <p class="entry-desc">
+              Institute of Physics, Chinese Academy of Sciences (CAS).
+              International Conference on Physics under Synergetic Extreme
+              Conditions.
+            </p>
+            <ul>
+              <li>
+                Gained exposure to high-pressure (diamond anvil cells) and
+                ultra-low-temperature (10 mK) experimental techniques for quantum
+                materials.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 中文注释：技能栏与 PDF 一致，不添加简历里没有的工具或语言 -->
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <table>
+          <caption class="visually-hidden">Technical skills grouped by category</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Programming</th>
+              <td>Python (NumPy, SciPy, PyTorch), LaTeX</td>
+            </tr>
+            <tr>
+              <th scope="row">Machine learning</th>
+              <td>
+                Neural networks (CNNs, VAEs), diffusion models (LDM, CCDM)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <p class="back-link no-print">
+        <a href="../index.html">Back to home</a>
+        <span class="sep">|</span>
+        <a href="../assets/cv.pdf" download>Download CV (PDF)</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. No part of this page &mdash; text,
+        contact details, or the PDF &mdash; may be reused for commercial purposes
+        without written permission.
+      </p>
+      <p class="no-print">
+        <a href="../copyright/index.html">Copyright and terms of use</a>
+      </p>
+      <p>Please refer to the PDF version for applications.</p>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

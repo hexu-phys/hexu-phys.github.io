@@ -1,0 +1,187 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：Projects 栏目总览。目前只有两个在做的项目：
+    1) phase-space-network   —— 相空间网络的普适高斯谱（2026 年 9 月起）
+    2) langevin-coupling     —— 二维取向圆盘的转动 Langevin 耦合（2026 年 10 月起）
+  两个项目各有独立详情页 projects/<slug>/index.html，PDF 固定放在
+  projects/<slug>/paper.pdf（页面只引用这一个文件名，换 PDF 时按同名覆盖即可）。
+
+  维护要点：
+  1) 导航只有 Home / Projects / CV：Research 与 Notes 两个栏目暂时隐去
+     （见 NOTES.zh.md 第 15 节），不要再把它们加回导航。
+  2) 内容定位是"软物质、偏理论、会一点实验"：写模型、自由能、场论、数值检验、
+     与实验数据的比较；不要写成"科学计算/工程流水线"。
+  3) 保留 [.. available upon request] 这类占位说明（本人要求保留），
+     它们只是文本，不是链接，所以不会产生死链。
+  4) 不要写具体数值结果、目标期刊、投稿状态。
+  5) 新增项目：建 projects/<slug>/ 目录，放 paper.pdf 与 index.html，
+     然后在下面 .entry-list 里加一条，并在 sitemap.xml 里加 URL。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects &mdash; Xu He</title>
+  <meta name="description" content="Research projects of Xu He in theoretical soft matter: phase-space networks with a universal Gaussian spectrum, and rotational Langevin dynamics of coupled colloidal disks.">
+  <link rel="canonical" href="https://hexu-phys.github.io/projects/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="Projects &mdash; Xu He">
+  <meta property="og:description" content="Research projects in theoretical soft matter: collective behaviour, field theory, and rotational dynamics of colloidal disks.">
+  <meta property="og:url" content="https://hexu-phys.github.io/projects/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Projects</h1>
+      <p class="identity">Soft matter theory, simulation, and comparison with experiment</p>
+
+      <!-- 中文注释：导航与首页一致；Research 与 Notes 暂时隐去 -->
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html" aria-current="page">Projects</a></li>
+          <li><a href="../cv/index.html">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <p>
+          My work is theoretical soft matter: the statistical mechanics of classical
+          many-body systems, field- and mean-field descriptions of collective
+          behaviour, and the numerical work needed to test those descriptions. Each
+          project below starts from a reduced model of the collective degrees of
+          freedom, derives what that model predicts, and checks the prediction against
+          a simulation or against measurements on colloidal systems.
+        </p>
+        <div class="note-box">
+          <p><strong>Availability.</strong> Simulation and analysis code for these
+          projects is not public; where a line reads
+          <em>[Code available upon request]</em>, I can share a description or a
+          private walkthrough on request and with my advisor's approval. The write-ups
+          linked below are working drafts shared for discussion, not peer-reviewed
+          publications.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="list-heading">
+        <h2 id="list-heading">Current projects</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">
+                <a href="phase-space-network/index.html">Phase-space networks with a universal Gaussian spectrum</a>
+              </h3>
+              <span class="entry-meta">Sep 2026 &ndash; Present &middot; Ongoing</span>
+            </div>
+            <p class="entry-desc">
+              The connectivity graph of a many-body phase space often has the same
+              spectrum in the thermodynamic limit: across frustrated magnets,
+              one-dimensional lattice gases, and spin glasses, the empirical spectral
+              distribution of the adjacency matrix approaches a Gaussian. I am
+              isolating the sufficient conditions for that universality, formulating
+              the problem in operator algebra and controlling the moments through a
+              decay assumption on cumulative traces.
+            </p>
+            <p class="entry-links">
+              <a href="phase-space-network/index.html">Project page</a>
+              <span class="sep">|</span>
+              <a href="phase-space-network/paper.pdf" download>Write-up (PDF)</a>
+              <span class="sep">|</span>
+              <span class="muted">[Code available upon request]</span>
+            </p>
+          </li>
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title">
+                <a href="langevin-coupling/index.html">Rotational Langevin dynamics of a coupled disk array</a>
+              </h3>
+              <span class="entry-meta">Oct 2026 &ndash; Present &middot; Ongoing</span>
+            </div>
+            <p class="entry-desc">
+              In a dense two-dimensional array of disklike colloids the centres are
+              fixed but each disk can rotate, and neighbouring disks are coupled
+              through the lubrication flow in the narrow gaps between them. I derive
+              the effective rotational Langevin equation for this system, analyse its
+              mode structure and equal-time correlations beyond the mean-field
+              estimate, extend the treatment to weakly disordered lattices, and compare
+              the predicted correlations with experimental measurements.
+            </p>
+            <p class="entry-links">
+              <a href="langevin-coupling/index.html">Project page</a>
+              <span class="sep">|</span>
+              <a href="langevin-coupling/paper.pdf" download>Write-up (PDF)</a>
+              <span class="sep">|</span>
+              <span class="muted">[Code available upon request]</span>
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 中文注释：把原来的 "Working practices" 改写成 "Approach"，
+           与本人申请方向（软物质、偏理论、会一点实验）对齐 -->
+      <section aria-labelledby="approach-heading">
+        <h2 id="approach-heading">Approach</h2>
+        <ul>
+          <li>
+            Start from a reduced description of the collective degrees of freedom:
+            mean-field theory where it is controlled, a field theory where it is not.
+          </li>
+          <li>
+            Use the free energy as the default route into phase behaviour, linear
+            stability, and pattern formation, and treat symmetry as the organising
+            principle behind the spectrum of a model.
+          </li>
+          <li>
+            Treat numerical work as a test of the analytic prediction rather than a
+            substitute for it; the parameters always come from the physical system,
+            not from what makes the fit easy.
+          </li>
+          <li>
+            Compare with experiment wherever data exist, which for colloidal systems
+            means measured correlation functions and structure factors rather than
+            single-particle trajectories.
+          </li>
+          <li>
+            Keep the analysis reproducible: one entry point per project, and every
+            figure produced by a script.
+          </li>
+        </ul>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">Back to home</a>
+        <span class="sep">|</span>
+        <a href="../cv/index.html">CV</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. No part of this site &mdash; text,
+        figures, contact details, or research drafts &mdash; may be reused for
+        commercial purposes without written permission.
+      </p>
+      <p>
+        Drafts are shared for discussion and are not peer-reviewed publications.
+        <a href="../copyright/index.html">Copyright and terms of use</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

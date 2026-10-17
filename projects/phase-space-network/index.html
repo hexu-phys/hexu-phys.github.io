@@ -1,0 +1,191 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：项目详情页 —— 相空间网络的普适高斯谱（2026 年 9 月起）。
+  PDF 固定放在同目录的 paper.pdf；换新版本时用同名文件覆盖即可，
+  页面里的两处链接（download 按钮 + 内嵌 <object>）都不用改。
+
+  维护要点：
+  1) 内容定位：软物质/统计物理的理论工作，强调模型、算符代数、矩方法、
+     极限定理与数值检验；不要写成工程流水线。
+  2) 只写高层次描述，不写具体数值、目标期刊、投稿状态。
+  3) 内嵌 PDF 用原生 <object>，失败时回落到下载链接（不引入 PDF.js）。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phase-space networks with a universal Gaussian spectrum &mdash; Xu He</title>
+  <meta name="description" content="Project by Xu He: sufficient conditions for the universal Gaussian spectrum of phase-space networks, formulated in operator algebra and proved with the method of moments.">
+  <link rel="canonical" href="https://hexu-phys.github.io/projects/phase-space-network/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="Phase-space networks with a universal Gaussian spectrum">
+  <meta property="og:description" content="Which structural properties of a many-body phase space produce a universal Gaussian density of states? A theory project in operator algebra.">
+  <meta property="og:url" content="https://hexu-phys.github.io/projects/phase-space-network/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Phase-space networks with a universal Gaussian spectrum</h1>
+      <p class="identity">Theory project &middot; Sep 2026 &ndash; present</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../index.html">Projects</a></li>
+          <li><a href="../../cv/index.html">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <dl class="facts">
+        <dt>Timeline</dt>
+        <dd>Sep 2026 &ndash; present</dd>
+        <dt>Status</dt>
+        <dd><span class="badge">Ongoing</span></dd>
+        <dt>Role</dt>
+        <dd>Theory: formulation, derivation, and numerical checks</dd>
+        <dt>Field</dt>
+        <dd>Statistical mechanics of many-body systems; soft and condensed matter theory</dd>
+        <dt>Methods</dt>
+        <dd>Operator-algebra formulation; method of moments; decay estimates on cumulative traces; exact diagonalisation and spectral numerics</dd>
+        <dt>Test systems</dt>
+        <dd>Frustrated magnets, one-dimensional lattice gases, spin glasses</dd>
+        <dt>Document</dt>
+        <dd>Draft write-up, 35 pages</dd>
+      </dl>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Research question</h2>
+        <p>
+          The phase space of a many-body system grows exponentially with its size,
+          yet the density of states of its connectivity graph keeps coming out the
+          same. Across a family of frustrated and glassy models, the empirical
+          spectral distribution of the phase-space adjacency matrix converges, after a
+          suitable normalisation, to a Gaussian in the thermodynamic limit, largely
+          independent of microscopic detail.
+        </p>
+        <p>
+          The question is which structural properties are actually responsible: which
+          assumptions are sufficient for the limit to hold, and how the limiting
+          variance is fixed by the two-point correlations of the model.
+        </p>
+      </section>
+
+      <section aria-labelledby="approach-heading">
+        <h2 id="approach-heading">Approach</h2>
+        <p>
+          Rather than treating each graph geometry as a separate problem, I formulate
+          the question in operator algebra so that the graph models share one
+          language, and then control the moments of the spectrum with an assumption on
+          the decay of cumulative traces. Four steps carry the argument.
+        </p>
+        <ul>
+          <li>
+            <strong>An exactly solvable reference case.</strong> For a periodic lattice
+            gas of commuting local spin-flip operators the configuration graph is a
+            hypercube, whose spectrum is a sum of independent Rademacher variables:
+            the Gaussian limit follows from the classical central limit theorem, and
+            fixes both normalisation and shape of the answer.
+          </li>
+          <li>
+            <strong>Locality.</strong> Replacing the hypercube by distant local
+            operators whose cluster commutators decay exponentially in the diameter of
+            their support, the same limit survives, with a variance determined by the
+            two-point correlations.
+          </li>
+          <li>
+            <strong>Conserved charges.</strong> When the model has a symmetry, the
+            adjacency operator is block diagonal in the charge sectors. Each sector
+            inherits a Gaussian limit, and the full spectrum is a mixture that
+            collapses to a single Gaussian exactly when the sector variances
+            concentrate.
+          </li>
+          <li>
+            <strong>Coarse graining.</strong> The limit is stable under a
+            decimation-type coarse graining: the coarse-grained network obeys the same
+            law up to a deterministic rescaling, which is the precise sense in which
+            the self-similar structure seen in earlier numerical work appears.
+          </li>
+        </ul>
+        <p>
+          The hypotheses are then checked against the models that motivated the study,
+          a frustrated spin glass with conserved energy and a lattice gas with
+          conserved particle number, where the interactions are strictly local and no
+          further estimate is needed.
+        </p>
+      </section>
+
+      <section aria-labelledby="contribution-heading">
+        <h2 id="contribution-heading">My contribution</h2>
+        <ul>
+          <li>
+            Set up the operator-algebra formulation that treats the graph models in one
+            framework rather than case by case.
+          </li>
+          <li>
+            Developed the moment argument behind the limit theorem, including how
+            conserved charges and coarse graining enter.
+          </li>
+          <li>
+            Carried out the numerical spectral checks on the test models and the
+            low-dimensional toy model used to illustrate the locality hypothesis.
+          </li>
+        </ul>
+        <p class="muted">
+          Code and data behind the figures: [Code available upon request].
+        </p>
+      </section>
+
+      <section aria-labelledby="document-heading">
+        <h2 id="document-heading">Project write-up</h2>
+        <!-- 中文注释：PDF 文件名固定为 paper.pdf，换版本直接同名覆盖 -->
+        <p class="pdf-actions">
+          <a class="btn" href="paper.pdf" download>Download the write-up (PDF)</a>
+          <span class="muted">Current draft, 35 pages</span>
+        </p>
+        <p class="pdf-hint">
+          A working draft shared for discussion; not a peer-reviewed publication.
+        </p>
+        <div class="pdf-frame">
+          <object data="paper.pdf" type="application/pdf">
+            <p>
+              Your browser cannot display this PDF inline.
+              <a href="paper.pdf" download>Download the write-up instead</a>.
+            </p>
+          </object>
+        </div>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">All projects</a>
+        <span class="sep">|</span>
+        <a href="../../index.html">Back to home</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. This draft is shared for discussion; it
+        may not be redistributed or used commercially without written permission.
+      </p>
+      <p>
+        <a href="../../copyright/index.html">Copyright and terms of use</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

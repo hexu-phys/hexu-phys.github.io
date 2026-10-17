@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img"
+     aria-labelledby="og-title" width="1200" height="630">
+  <title id="og-title">Social preview card for the site</title>
+  <!-- 中文注释：
+       社交分享预览图（Open Graph image），对应首页 <head> 里的 og:image。
+       注意：SVG 是 XML，只有 &amp; &lt; &gt; &quot; &apos; 五个预定义实体，
+       不要写 &mdash; / &middot; 这类 HTML 实体（会导致 XML 解析失败），
+       直接用 UTF-8 的 "—" "·" 字符。
+       另：部分平台（某些版本的 Twitter/X 与 Slack）不支持 SVG 预览图，
+       如需最大兼容性，请导出 1200x630 的 PNG 并同步修改各页 og:image。
+  -->
+  <rect x="0" y="0" width="1200" height="630" fill="#ffffff"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#1a5fb4"/>
+  <g font-family="-apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+    <text x="80" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#1f2328">Xu He</text>
+    <text x="80" y="300" font-size="30" fill="#6b7280">Research Assistant, Physics Department — HKUST</text>
+    <text x="80" y="344" font-size="28" fill="#6b7280">BA and MMath, University of Cambridge</text>
+    <line x1="80" y1="396" x2="1120" y2="396" stroke="#e5e7eb" stroke-width="2"/>
+    <text x="80" y="456" font-size="28" fill="#1f2328">Soft matter physics · field theory · pattern formation</text>
+    <text x="80" y="502" font-size="24" fill="#6b7280">Theory, simulation, and data analysis</text>
+    <text x="80" y="576" font-size="24" fill="#1a5fb4">hexu-phys.github.io</text>
+    <text x="1120" y="576" font-size="22" fill="#6b7280" text-anchor="end">Hong Kong SAR</text>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+# 中文注释：robots.txt —— 允许正常抓取，并指向 sitemap。
+# 维护要点：
+#   1) private.html 是旧版 0 字节空文件改成的说明页，不承载内容，禁止抓取。
+#   2) 新增页面后记得同步更新 sitemap.xml（两个文件都在仓库根目录）。
+User-agent: *
+Allow: /
+Disallow: /private.html
+
+Sitemap: https://hexu-phys.github.io/sitemap.xml

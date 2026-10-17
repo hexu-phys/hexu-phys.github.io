@@ -1,0 +1,185 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：项目详情页 —— 二维取向圆盘的转动 Langevin 耦合（2026 年 10 月起）。
+  PDF 固定放在同目录的 paper.pdf；换新版本时同名覆盖即可。
+
+  维护要点：
+  1) 内容定位：软物质（胶体、低雷诺数流体）里的理论工作 + 与实验数据的比较，
+     体现"偏理论、会一点实验"。
+  2) 只写高层次描述，不写具体数值、目标期刊、投稿状态。
+  3) 内嵌 PDF 用原生 <object>，失败时回落到下载链接。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rotational Langevin dynamics of a coupled disk array &mdash; Xu He</title>
+  <meta name="description" content="Project by Xu He: an effective rotational Langevin equation for a two-dimensional array of colloidal disks coupled by lubrication torques, its mode structure and correlations, and comparison with experiment.">
+  <link rel="canonical" href="https://hexu-phys.github.io/projects/langevin-coupling/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="Rotational Langevin dynamics of a coupled disk array">
+  <meta property="og:description" content="Effective rotational Langevin dynamics of colloidal disks coupled through lubrication gaps: mode structure, correlations, disorder, and experiment.">
+  <meta property="og:url" content="https://hexu-phys.github.io/projects/langevin-coupling/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Rotational Langevin dynamics of a coupled disk array</h1>
+      <p class="identity">Theory project with an experimental comparison &middot; Oct 2026 &ndash; present</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../index.html">Projects</a></li>
+          <li><a href="../../cv/index.html">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <dl class="facts">
+        <dt>Timeline</dt>
+        <dd>Oct 2026 &ndash; present</dd>
+        <dt>Status</dt>
+        <dd><span class="badge">Ongoing</span></dd>
+        <dt>Role</dt>
+        <dd>Theory and numerical analysis; comparison with experimental data</dd>
+        <dt>Field</dt>
+        <dd>Soft matter; colloidal hydrodynamics at low Reynolds number</dd>
+        <dt>Methods</dt>
+        <dd>Lubrication theory for the narrow gaps; rotational Langevin equation; Fourier and mode analysis on the triangular lattice; disorder averaging; comparison with measured correlation functions</dd>
+        <dt>System</dt>
+        <dd>Two-dimensional triangular array of rigid disks with fixed centres, free to rotate</dd>
+        <dt>Document</dt>
+        <dd>Draft write-up, 26 pages</dd>
+      </dl>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Research question</h2>
+        <p>
+          In a dense monolayer of colloidal disks the centres are jammed by the
+          neighbours, but every disk can still rotate, and the fluid squeezed into the
+          narrow gaps transmits torque between neighbours. Those rotational degrees of
+          freedom are usually dropped from collective descriptions of such a layer.
+        </p>
+        <p>
+          The question is what the coupling does to the collective rotational
+          dynamics: what the effective damping of a mode is, how the equal-time
+          correlations fall off with distance, and whether the answer survives the
+          disorder of a real array.
+        </p>
+      </section>
+
+      <section aria-labelledby="approach-heading">
+        <h2 id="approach-heading">Approach</h2>
+        <ul>
+          <li>
+            <strong>Effective equation.</strong> Disks on a triangular lattice, in the
+            lubrication limit where the mean gap is much smaller than the radius and
+            the flow in the gap is a creeping Stokes flow, exchange a torque
+            proportional to the sum of the two angular velocities. The angular-momentum
+            balance for each disk then closes into one rotational Langevin equation
+            with an effective damping, a nearest-neighbour coupling, and a stochastic
+            torque, with the coupling coefficient estimated from the gap geometry and
+            the viscosity.
+          </li>
+          <li>
+            <strong>Beyond mean field.</strong> The mean-field damping is only the
+            uniform limit of the mode structure. A Fourier analysis on the triangular
+            lattice gives the damping of every mode and, after inverse transform, the
+            real-space correlations, which are not monotonic in distance.
+          </li>
+          <li>
+            <strong>Stationary correlations.</strong> The single-mode variance is
+            obtained exactly, and the subtraction of the mean from the measured
+            correlation is treated explicitly, since that subtraction is what sets the
+            stationary kernel and the shell correlations an experiment can actually
+            extract.
+          </li>
+          <li>
+            <strong>Weak disorder.</strong> The lattice description is carried over to
+            a weakly disordered medium through a disorder-averaged structure factor, so
+            that the damping and the equal-time correlations can be predicted for an
+            array whose spacing is not perfectly periodic.
+          </li>
+          <li>
+            <strong>Experiment.</strong> The prediction is written in terms of
+            correlation functions and structure factors that can be measured directly,
+            and compared with observations on colloidal disks.
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contribution-heading">
+        <h2 id="contribution-heading">My contribution</h2>
+        <ul>
+          <li>
+            Derived the effective rotational Langevin equation, including the
+            lubrication torque between neighbouring disks and the coefficient estimate.
+          </li>
+          <li>
+            Worked out the mode analysis beyond the mean-field damping, the stationary
+            correlation, and the disordered generalisation.
+          </li>
+          <li>
+            Carried out the numerical evaluation and verification, and set up the
+            comparison with the experimental data.
+          </li>
+        </ul>
+        <p class="muted">
+          Code and data behind the figures: [Code available upon request].
+        </p>
+      </section>
+
+      <section aria-labelledby="document-heading">
+        <h2 id="document-heading">Project write-up</h2>
+        <!-- 中文注释：PDF 文件名固定为 paper.pdf，换版本直接同名覆盖 -->
+        <p class="pdf-actions">
+          <a class="btn" href="paper.pdf" download>Download the write-up (PDF)</a>
+          <span class="muted">Current draft, 26 pages</span>
+        </p>
+        <p class="pdf-hint">
+          A working draft shared for discussion; not a peer-reviewed publication.
+        </p>
+        <div class="pdf-frame">
+          <object data="paper.pdf" type="application/pdf">
+            <p>
+              Your browser cannot display this PDF inline.
+              <a href="paper.pdf" download>Download the write-up instead</a>.
+            </p>
+          </object>
+        </div>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">All projects</a>
+        <span class="sep">|</span>
+        <a href="../../index.html">Back to home</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. This draft is shared for discussion; it
+        may not be redistributed or used commercially without written permission.
+      </p>
+      <p>
+        <a href="../../copyright/index.html">Copyright and terms of use</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

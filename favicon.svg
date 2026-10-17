@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Site icon">
+  <!-- 中文注释：
+       favicon.svg —— 站点图标。设计：白底、1px 边框、衬线体缩写字母。
+       想改成自己的名字首字母时，改下面 <text> 里的 HX 即可（建议 2 个字符以内）。
+       不生成实体 .ico 二进制；如需 ico，可用任意在线工具由本文件转换。
+  -->
+  <rect x="0" y="0" width="64" height="64" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+  <text x="32" y="41" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="26"
+        font-weight="600" fill="#1a5fb4">HX</text>
+</svg>

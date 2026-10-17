@@ -1,0 +1,142 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：网站首页（Home）。姓名（含一次中文全名）+ 身份 + 学历 + 城市与研究方向
+  + About（含三个在研项目主题）+ 联系方式 + Research interests。
+  维护要点：
+  1) 访客可见文本必须是英文；唯一例外是本页 <h1> 里的中文全名"何煦"，
+     全站只允许出现这一次（tools/check-site.mjs 已把它登记为显式例外）。
+  2) 顶部导航暂时隐去 Research 与 Notes（两个栏目尚未定稿，见 NOTES.zh.md 第 14 节）。
+     恢复方法：把对应 <li> 加回导航，并在 research/ 与 notes/ 页面里同步改回来。
+  3) 首页刻意不设 "Selected research projects" 小节：三个项目接近完成但尚未发表，
+     下一阶段再决定呈现方式；目前只在 About 第二段写项目主题。
+  4) 不要写具体数值结果、目标期刊、投稿状态、双盲信息。
+  5) 联系方式只留三个邮箱；GitHub / Google Scholar / ORCID 暂时隐藏。
+  6) 内部链接一律相对路径。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xu He &mdash; Soft Matter Physics</title>
+  <meta name="description" content="Xu He, research assistant in the Physics Department at HKUST: soft matter theory and simulation, field theory, pattern formation, and research experience at the University of Cambridge.">
+  <link rel="canonical" href="https://hexu-phys.github.io/">
+
+  <!-- 中文注释：Open Graph 基础标签；og:url 与 canonical 都用绝对 URL -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="Xu He &mdash; Soft Matter Physics">
+  <meta property="og:description" content="Research assistant in the Physics Department at HKUST. Soft matter theory and simulation, field theory, and pattern formation.">
+  <meta property="og:url" content="https://hexu-phys.github.io/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <!-- 中文注释：中文全名全站只在此出现一次，不要再在别处重复 -->
+      <h1>Xu He (何煦)</h1>
+      <p class="identity">Research Assistant, Physics Department &mdash; HKUST</p>
+      <p class="identity">BA and MMath, University of Cambridge</p>
+      <p class="muted">Hong Kong SAR &middot; Research area: soft matter and soft condensed matter physics</p>
+
+      <!-- 中文注释：顶部导航；当前页用 aria-current="page" 标记（JS 只做兜底）。
+           Research 与 Notes 暂时隐去，见文件头注释第 2 条。 -->
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="projects/index.html">Projects</a></li>
+          <li><a href="cv/index.html">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- 中文注释：自我介绍。第一段写领域与方法；第二段写三个在研项目主题与博士申请计划。
+           只写主题，不写结果、不写目标期刊、不写投稿状态。 -->
+      <section aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
+        <p>
+          I am a research assistant in the Physics Department at HKUST, working in
+          Prof. Yilong Han's group. My work sits at the intersection of field theory
+          and pattern formation in colloidal systems, together with the numerical
+          methods that support them. I build models that capture the macroscopic
+          features of collective behaviour and pattern formation, and I develop
+          simulation and analysis pipelines that turn large numerical datasets into
+          quantitative, testable statements in support of theory.
+        </p>
+        <p>
+          I currently have three projects in their final stages, on the universality
+          of the Gaussian spectrum for phase-space networks of local operators, on
+          couplings and rotational correlations of hexatic colloids from the Langevin
+          equation, and on a reaction-diffusion model of hyperbolic patterns in
+          biological systems. I am preparing applications for doctoral study starting
+          in autumn 2027, and I am glad to discuss my work in more detail by email.
+        </p>
+
+        <!-- 中文注释：联系方式一行，只保留三个邮箱（工作 / 学校 / 私人）。
+             GitHub、Google Scholar、ORCID 按本人要求暂时隐藏。 -->
+        <p class="contact-line">
+          <a href="mailto:hexu@ust.hk">hexu@ust.hk</a>
+          <span class="sep">|</span>
+          <a href="mailto:xh339@cantab.ac.uk">xh339@cantab.ac.uk</a>
+          <span class="sep">|</span>
+          <a href="mailto:hexu879109462@gmail.com">hexu879109462@gmail.com</a>
+        </p>
+      </section>
+
+      <!-- 中文注释：研究兴趣。只写领域与方法，不写工具链（按本人要求删去
+           "Reproducible scientific computing" 一条），也不写任何未发表结论。 -->
+      <section aria-labelledby="interests-heading">
+        <h2 id="interests-heading">Research interests</h2>
+        <ul>
+          <li>
+            Soft matter and soft condensed matter physics &mdash; the collective
+            behaviour and classical many-body interactions of such systems, studied
+            through theory, simulation, and data analysis.
+          </li>
+          <li>
+            Modelling with mean-field theory and finer-grained field theories;
+            phase transitions studied through the free energy.
+          </li>
+          <li>
+            Introductory differential-geometry methods for pattern formation in
+            biological systems.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. No part of this site &mdash; text,
+        figures, contact details, or research drafts &mdash; may be reused for
+        commercial purposes without written permission.
+      </p>
+      <p>
+        <a href="copyright/index.html">Copyright and terms of use</a>
+        <span class="sep">|</span>
+        <a href="cv/index.html">CV</a>
+        <span class="sep">|</span>
+        <a href="projects/index.html">Projects</a>
+        <span class="sep">|</span>
+        <a href="mailto:hexu@ust.hk">Email</a>
+      </p>
+      <p class="muted">Static site: no trackers, no external scripts.</p>
+      <!-- 中文注释：
+           旧版兼容跳转页 cv.html / project.html / private.html 的入口已从这里移除：
+           它们只服务于站外旧链接，放在公开首页不专业。
+           文件本身仍保留（不删除已有文件），tools/check-site.mjs 已把它们登记为
+           "故意不在站内导航里"从而豁免孤岛页检查。详见 NOTES.zh.md 第 14 节。 -->
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

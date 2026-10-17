@@ -1,0 +1,68 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 718 >>
+stream
+BT
+/F1 14 Tf
+72 720 Td
+14 TL
+(Finite-size scaling of [Observable]) Tj
+T*
+(Project summary - placeholder document) Tj
+T*
+() Tj
+T*
+(This file is a placeholder that demonstrates the inline PDF viewer) Tj
+T*
+(on the project page. The real one-page summary is not published here) Tj
+T*
+(while the work is with the research group.) Tj
+T*
+() Tj
+T*
+(The summary, when released, will cover: the research question, the) Tj
+T*
+(system-size series, the fitting procedure, and the uncertainty) Tj
+T*
+(estimate. Its content corresponds to what is already described in) Tj
+T*
+(text on the project page.) Tj
+T*
+() Tj
+T*
+(To request the summary, please email [email@example.com].) Tj
+T*
+(Website: https://hexu-phys.github.io) Tj
+T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Title (Project summary - placeholder) /Producer (hexu-phys.github.io static site) >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001009 00000 n 
+0000001106 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R /Info 6 0 R >>
+startxref
+1210
+%%EOF

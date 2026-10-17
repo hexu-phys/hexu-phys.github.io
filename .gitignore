@@ -1,0 +1,7 @@
+# 中文注释：
+# 仓库根目录的这两个文件是本地任务说明与修改要求，不属于网站内容。
+# 如果被 `git add -A` 提交，它们会随 GitHub Pages 一起公开（任何人都能下载
+# https://hexu-phys.github.io/prompt.txt），而里面含有未发表工作的说明、
+# 导师意见与个人信息。因此在这里排除，文件本身仍保留在本地。
+prompt.txt
+reference for edition.txt

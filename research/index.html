@@ -1,0 +1,166 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：Research 总览页。主轴是"Selected Research Projects"（不是论文列表）。
+  结构：简介 + 按年份倒序的项目列表 + 子栏目入口
+  （Projects / Publications / Notes）+ 公开边界声明。
+  维护要点：
+  1) 新增项目：在本页 .entry-list 里加一个 <li class="entry">，年份倒序，
+     并在 research/<slug>/ 下建详情页；同时更新 sitemap.xml。
+  2) 绝不在此页写未发表论文标题、目标期刊、投稿状态。
+  3) 需要替换的占位符：[Your Name] / [Research Area] / [Broad Physical System]。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 中文注释：本栏目尚未定稿、暂时不对外，加 noindex 防止被搜索引擎收录；
+       恢复栏目时删掉这一行即可（同时把 sitemap 与导航改回来）。 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Research — [Your Name]</title>
+  <meta name="description" content="Selected research projects by [Your Name]: simulation, analysis, and methods in [Research Area]. Project summaries, methods, tools, and roles.">
+  <link rel="canonical" href="https://hexu-phys.github.io/research/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="[Your Name]">
+  <meta property="og:title" content="Research — [Your Name]">
+  <meta property="og:description" content="Selected research projects: simulation, analysis, and methods in [Research Area].">
+  <meta property="og:url" content="https://hexu-phys.github.io/research/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Research</h1>
+      <p class="identity">Selected research projects, [Your Name]</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html" aria-current="page">Research</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="../cv/index.html">CV</a></li>
+          <li><a href="../notes/index.html">Notes</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <p>
+          My research addresses [Broad Physical System] using a combination of
+          [Method Family] and large-scale numerical simulation. Each project below
+          is presented as a self-contained work sample: the question I worked on,
+          the methods and tools I used, what I contributed personally, and a
+          high-level description of the outcome.
+        </p>
+        <div class="note-box">
+          <p><strong>On what is published here.</strong> The projects on this site are
+          ongoing or completed research that is not yet publicly released. Following
+          my group's policy, I describe research areas, methods, skills, and my own
+          contribution, while specific results and manuscripts remain with the group
+          until they are cleared for release. Anything marked
+          <em>[available upon request]</em> can be discussed directly by email.</p>
+        </div>
+        <p class="entry-links">
+          <a href="projects/index.html">Project portfolio</a>
+          <span class="sep">|</span>
+          <a href="publications/index.html">Publications</a>
+          <span class="sep">|</span>
+          <a href="notes/index.html">Research notes</a>
+        </p>
+      </section>
+
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Selected research projects</h2>
+
+        <p class="year-group">2025</p>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title"><a href="2025-project-scaling/index.html">Finite-size scaling of [Observable]</a></h3>
+              <span class="entry-meta">Ongoing</span>
+            </div>
+            <p class="entry-desc">
+              Estimating a critical exponent from a system-size series, with an
+              emphasis on statistical uncertainty and finite-size corrections.
+            </p>
+            <p class="entry-links">
+              <a href="2025-project-scaling/index.html">Details</a>
+              <span class="sep">|</span>
+              <a href="2025-project-scaling/index.html#media">Interactive figure</a>
+            </p>
+          </li>
+        </ul>
+
+        <p class="year-group">2024</p>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title"><a href="2024-project-method/index.html">Reproducible pipeline for [Method]</a></h3>
+              <span class="entry-meta">Completed</span>
+            </div>
+            <p class="entry-desc">
+              A documented, re-runnable workflow that converts raw simulation output
+              into derived quantities and publication-quality figures.
+            </p>
+            <p class="entry-links">
+              <a href="2024-project-method/index.html">Details</a>
+              <span class="sep">|</span>
+              <a href="2024-project-method/index.html#media">Figure</a>
+            </p>
+          </li>
+        </ul>
+
+        <p class="year-group">2023</p>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="entry-head">
+              <h3 class="entry-title"><a href="2023-project-note/index.html">Technical note on [Numerical Detail]</a></h3>
+              <span class="entry-meta">Completed</span>
+            </div>
+            <p class="entry-desc">
+              A short methodological note on a numerical detail that materially
+              affects how [Observable] should be interpreted.
+            </p>
+            <p class="entry-links">
+              <a href="2023-project-note/index.html">Details</a>
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="howto-heading">
+        <h2 id="howto-heading">How to read these pages</h2>
+        <p>
+          Every project page follows the same layout: a short statement of the
+          research question, the methods and tools involved, my specific
+          contribution, and a high-level description of the outcome. Where a
+          figure can be shared, it appears as a static image or as a small
+          self-contained interactive panel that runs locally in the browser.
+        </p>
+        <ul>
+          <li><a href="projects/index.html">Project portfolio</a> — code, data products, and tooling, described at the level I am allowed to share.</li>
+          <li><a href="publications/index.html">Publications</a> — peer-reviewed record.</li>
+          <li><a href="notes/index.html">Research notes</a> — non-publication technical notes and short explainers.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <p>&copy; 2025 [Your Name]. Project descriptions are intentionally high-level.</p>
+      <p><a href="../index.html">Home</a> <span class="sep">|</span> <a href="../cv/index.html">CV</a> <span class="sep">|</span> <a href="mailto:[email@example.com]">Contact</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

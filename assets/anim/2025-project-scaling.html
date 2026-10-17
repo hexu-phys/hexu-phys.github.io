@@ -1,0 +1,393 @@
+<!doctype html>
+<!-- 中文注释：
+  本文件用途：2025-project-scaling 项目的自包含交互动画。
+  这个文件是"独立页面"，被母页用 <iframe sandbox="allow-scripts"> 嵌入，
+  因此它不能依赖父页面的 CSS/JS，也不能访问父页面 DOM（sandbox 未给 allow-same-origin）。
+  维护要点：
+  1) 零外部依赖：没有 CDN、没有网络请求、没有 fetch（file:// 下会失败）。
+  2) 数据全部在页面内部合成，使用固定随机种子 → 每次打开图形完全一致。
+  3) 处理 prefers-reduced-motion：动画循环会停在第 1 帧，但滑块交互仍然可用。
+  4) 响应式：canvas 按容器宽度和 devicePixelRatio 重绘，监听 window resize。
+  5) 若更换为真实数据，请把 makeSyntheticSeries() 替换为内联的常量数组，
+     不要把未发表数据硬编码进公开仓库。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive figure: effect of the fit window on the estimated exponent</title>
+  <meta name="robots" content="noindex">
+  <style>
+    /* 中文注释：动画页自己的样式，颜色与母站保持一致但完全本地定义 */
+    :root {
+      --text: #1f2328;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --link: #1a5fb4;
+      --bg: #ffffff;
+      --panel: #f8f9fa;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 12px 12px;
+    }
+    h1 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+    .layout { flex: 1 1 auto; display: flex; gap: 12px; min-height: 0; }
+    .plot { flex: 1 1 auto; min-width: 0; position: relative; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .controls {
+      flex: 0 0 200px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--panel);
+      padding: 10px;
+      overflow: auto;
+    }
+    .readout { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+    .readout strong { color: var(--text); font-size: 15px; }
+    label { display: block; font-size: 12px; margin: 0 0 2px; }
+    input[type="range"] { width: 100%; margin: 0 0 12px; accent-color: var(--link); }
+    .value { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .hint { font-size: 11.5px; color: var(--muted); margin: 12px 0 0; }
+    button {
+      font: inherit;
+      font-size: 12px;
+      color: var(--link);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      cursor: pointer;
+    }
+    button:hover { background: var(--panel); }
+    :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+    @media (max-width: 640px) {
+      .layout { flex-direction: column; }
+      .controls { flex: 0 0 auto; }
+    }
+    /* 中文注释：尊重系统的"减少动态效果"设置 */
+    @media (prefers-reduced-motion: reduce) {
+      button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Fit window and correction strength</h1>
+
+  <div class="layout">
+    <div class="plot">
+      <canvas id="plot" role="img"
+              aria-label="Scaling-collapse plot with a fitted line; the fit window and correction strength are controlled by the sliders on the right."></canvas>
+    </div>
+
+    <div class="controls">
+      <p class="readout">
+        Estimated exponent<br>
+        <strong id="exponent">&#8212;</strong><br>
+        <span id="status" class="value">demonstration data</span>
+      </p>
+
+      <label for="lmin">Smallest size in the fit: <span class="value" id="lmin-value">4</span></label>
+      <input type="range" id="lmin" min="0" max="8" step="1" value="0">
+
+      <label for="scale">Scale the data by <span class="value" id="corr-value">1.25</span></label>
+      <input type="range" id="corr" min="0" max="100" step="1" value="25">
+
+      <button type="button" id="reset">Reset</button>
+
+      <p class="hint">
+        The measurements are generated inside this figure with a fixed seed, using a
+        known exponent of 1.25 plus a finite-size correction that is largest for the
+        smallest systems. A plain power-law fit over <em>all</em> sizes reports a
+        biased exponent; raising the smallest size included brings the estimate back
+        to the known value. The true value is only known here because the data are
+        synthetic.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // 中文注释：
+    // 全部逻辑自包含。变量说明：
+    //   SIZES    ：合成的 system size 序列（每个 size 一个数据点）
+    //   TRUE_EXP ：生成数据时使用的"已知"指数（合成值，不是任何项目结果）
+    //   TRUE_A   ：有限尺寸修正项的幅度，形式为 y ∝ L^-exp * (1 + A * exp(-L/xi))
+    //   XI       ：修正项的特征尺寸；xi 越小，修正项在小尺寸处衰减越快
+    // 拟合方法：把 y 乘以 L^b 后做加权线性回归，取"斜率绝对值最小"的 b 作为估计值。
+    // 这与手动在 log-log 图上找直线是同一件事。
+    (function () {
+      'use strict';
+
+      var SIZES = [4, 6, 8, 10, 12, 16, 20, 24, 32];
+      var TRUE_EXP = 1.25;      // 中文注释：合成"真值"，仅用于演示偏差方向
+      var TRUE_A = 2.5;         // 中文注释：生成数据时的有限尺寸修正幅度
+      var XI = 3;               // 中文注释：修正项的特征尺寸
+
+      // 中文注释：固定种子的伪随机数生成器（mulberry32），保证每次打开图形一致
+      function makeRng(seed) {
+        var t = seed >>> 0;
+        return function () {
+          t = (t + 0x6D2B79F5) >>> 0;
+          var r = Math.imul(t ^ (t >>> 15), 1 | t);
+          r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+          return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      // 中文注释：生成合成数据点。y = L^-exp * (1 + A * exp(-L / xi)) + 噪声
+      // 误差用相对误差（乘性噪声），这与"每个尺寸测同一个量、精度随尺寸略变"的情形一致。
+      function makeSyntheticSeries() {
+        var rng = makeRng(20250101);
+        var out = [];
+        for (var i = 0; i < SIZES.length; i++) {
+          var L = SIZES[i];
+          var y = Math.pow(L, -TRUE_EXP) * (1 + TRUE_A * Math.exp(-L / XI));
+          var relSigma = 0.004 + 0.02 / Math.sqrt(L);
+          var sigma = relSigma * y;
+          // 中文注释：Box-Muller 生成高斯噪声
+          var u1 = Math.max(rng(), 1e-9);
+          var u2 = rng();
+          var g = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+          y += g * sigma;
+          out.push({ L: L, y: y, sigma: sigma });
+        }
+        return out;
+      }
+
+      var DATA = makeSyntheticSeries();
+
+      // 中文注释：
+      // 加权 log-log 直线拟合（这就是在纸上用尺子画直线那件事的算法版本）：
+      //     log y = intercept + slope * log L
+      // 估计的指数 exp_est = -slope。
+      // 权重用 1/(sigma/y)^2，即相对误差的平方倒数。
+      //
+      // ⚠️ 踩坑记录（不要在以后再犯）：
+      // 曾经试过另一种做法——先把数据乘 L^b，再搜索让拟合斜率最小的 b。
+      // 那是错的：log(y * L^b) = log y + b*log L，而 b*log L 对 log L 是线性的，
+      // 会被回归的截距和斜率完全吸收，卡方与 b 完全无关（实测 b 从 0.5 到 3.0
+      // 卡方恒为 431.5615），搜索出来的 b 纯属噪声。正确做法就是下面这个。
+      function fitExponent(points) {
+        var sw = 0, swx = 0, swy = 0, swxx = 0, swxy = 0;
+        var i, p;
+        for (i = 0; i < points.length; i++) {
+          p = points[i];
+          var x = Math.log(p.L);
+          var y = Math.log(p.y);
+          var relErr = p.sigma / p.y;
+          var w = 1 / (relErr * relErr);
+          sw += w; swx += w * x; swy += w * y; swxx += w * x * x; swxy += w * x * y;
+        }
+        var det = sw * swxx - swx * swx;
+        if (Math.abs(det) < 1e-12) { return NaN; }
+        var slope = (sw * swxy - swx * swy) / det;
+        if (!isFinite(slope)) { return NaN; }
+        return -slope;
+      }
+
+      var canvas = document.getElementById('plot');
+      var ctx = canvas.getContext('2d');
+      var exponentEl = document.getElementById('exponent');
+      var statusEl = document.getElementById('status');
+      var lminInput = document.getElementById('lmin');
+      var corrInput = document.getElementById('corr');
+      var lminValue = document.getElementById('lmin-value');
+      var corrValue = document.getElementById('corr-value');
+      var resetBtn = document.getElementById('reset');
+
+      // 中文注释：读取系统的"减少动态效果"偏好，决定是否播放过渡动画
+      var reduceMotion = window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        : false;
+
+      var animProgress = reduceMotion ? 1 : 0;
+      var animFrom = 0, animTo = 0, animStart = 0;
+
+      // 中文注释：按容器尺寸和 devicePixelRatio 设置 canvas 尺寸，保证清晰且响应式
+      function resize() {
+        var rect = canvas.parentNode.getBoundingClientRect();
+        var dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.max(320, Math.round(rect.width * dpr));
+        canvas.height = Math.max(200, Math.round(rect.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(rect.width, rect.height);
+      }
+
+      // 中文注释：主绘制函数。w/h 为 CSS 像素尺寸。
+      function draw(w, h) {
+        var idx = Number(lminInput.value);
+        if (!isFinite(idx)) { idx = 0; }
+        idx = Math.max(0, Math.min(SIZES.length - 1, Math.round(idx)));
+        var minSize = SIZES[idx];
+        // 中文注释：显示用的缩放指数（滑块控制），只影响纵轴刻度，不影响拟合
+        var scaleExp = Number(corrInput.value) / 100;
+
+        var pts = [];
+        for (var i = 0; i < DATA.length; i++) {
+          if (DATA[i].L >= minSize) { pts.push(DATA[i]); }
+        }
+        // 中文注释：至少保留 3 个点，否则拟合不可靠
+        if (pts.length < 3) { pts = DATA.slice(DATA.length - 3); }
+
+        var estimate = fitExponent(pts);
+        var smooth = animFrom + (animTo - animFrom) * animProgress;
+        var shown = reduceMotion ? estimate : smooth;
+        if (!isFinite(shown)) { shown = estimate; }
+
+        // 中文注释：设置读数
+        exponentEl.textContent = shown.toFixed(3);
+        var excluded = DATA.length - pts.length;
+        statusEl.textContent = pts.length + ' of ' + DATA.length + ' sizes used (L \u2265 ' + minSize + ')'
+          + (excluded ? ', ' + excluded + ' excluded' : '');
+
+        // 中文注释：坐标范围：x = L^-1（0 到最大），y = y * L^shown（压缩后应水平）
+        var maxInv = 1 / SIZES[0];
+        var padded = [];
+        var k, p, scaled;
+        for (k = 0; k < DATA.length; k++) {
+          p = DATA[k];
+          scaled = p.y * Math.pow(p.L, shown);
+          padded.push({ x: 1 / p.L, y: scaled, sigma: p.sigma * Math.pow(p.L, shown), inWindow: p.L >= minSize });
+        }
+        var yMin = Infinity, yMax = -Infinity;
+        for (k = 0; k < padded.length; k++) {
+          yMin = Math.min(yMin, padded[k].y - padded[k].sigma);
+          yMax = Math.max(yMax, padded[k].y + padded[k].sigma);
+        }
+        var pad = (yMax - yMin) * 0.18 || 0.05;
+        yMin -= pad; yMax += pad;
+
+        var m = { l: 46, r: 12, t: 10, b: 32 };
+        var pw = Math.max(60, w - m.l - m.r);
+        var ph = Math.max(60, h - m.t - m.b);
+
+        function sx(x) { return m.l + (x / maxInv) * pw; }
+        function sy(y) { return m.t + ph - ((y - yMin) / (yMax - yMin)) * ph; }
+
+        ctx.clearRect(0, 0, w, h);
+
+        // 中文注释：网格与坐标轴
+        ctx.strokeStyle = '#e5e7eb';
+        ctx.lineWidth = 1;
+        ctx.font = '11px -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+        ctx.fillStyle = '#6b7280';
+        var gridVals = [0, 0.25, 0.5, 0.75, 1];
+        for (k = 0; k < gridVals.length; k++) {
+          var gx = sx(maxInv * gridVals[k]);
+          ctx.beginPath(); ctx.moveTo(gx, m.t); ctx.lineTo(gx, m.t + ph); ctx.stroke();
+          ctx.textAlign = 'center';
+          ctx.fillText(gridVals[k].toFixed(2), gx, m.t + ph + 14);
+        }
+        for (k = 0; k <= 4; k++) {
+          var gy = m.t + (ph * k) / 4;
+          ctx.beginPath(); ctx.moveTo(m.l, gy); ctx.lineTo(m.l + pw, gy); ctx.stroke();
+          ctx.textAlign = 'right';
+          var label = (yMax - ((yMax - yMin) * k) / 4);
+          ctx.fillText(label.toFixed(3), m.l - 6, gy + 3);
+        }
+        ctx.strokeStyle = '#1f2328';
+        ctx.beginPath(); ctx.moveTo(m.l, m.t); ctx.lineTo(m.l, m.t + ph); ctx.lineTo(m.l + pw, m.t + ph); ctx.stroke();
+
+        // 中文注释：轴标题
+        ctx.fillStyle = '#6b7280';
+        ctx.textAlign = 'center';
+        ctx.fillText('scaled inverse size  (1 / L)', m.l + pw / 2, h - 4);
+        ctx.save();
+        ctx.translate(12, m.t + ph / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText('observable scaled by L^' + shown.toFixed(2), 0, 0);
+        ctx.restore();
+
+        // 中文注释：拟合曲线（水平线表示理想 collapse）
+        ctx.strokeStyle = '#1a5fb4';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(sx(0), sy(1));
+        ctx.lineTo(sx(maxInv), sy(1));
+        ctx.stroke();
+
+        // 中文注释：数据点 + 误差棒；被排除的点用空心灰色
+        for (k = 0; k < padded.length; k++) {
+          p = padded[k];
+          var px = sx(p.x), py = sy(p.y);
+          ctx.strokeStyle = p.inWindow ? '#6b7280' : '#d1d5db';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(px, sy(p.y - p.sigma));
+          ctx.lineTo(px, sy(p.y + p.sigma));
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+          if (p.inWindow) {
+            ctx.fillStyle = '#1a5fb4';
+            ctx.fill();
+          } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.strokeStyle = '#d1d5db';
+            ctx.stroke();
+          }
+        }
+      }
+
+      // 中文注释：动画循环（仅在未开启 reduce-motion 时使用）
+      function tick(now) {
+        if (animProgress < 1) {
+          if (!animStart) { animStart = now; }
+          var t = Math.min(1, (now - animStart) / 450);
+          animProgress = t;
+          var rect = canvas.parentNode.getBoundingClientRect();
+          draw(rect.width, rect.height);
+          window.requestAnimationFrame(tick);
+        }
+      }
+
+      // 中文注释：
+      // 参数变化时更新图形。
+      // lmin 滑块的值是 SIZES 数组的下标（0..8），所以界面上显示的是对应的尺寸。
+      function update() {
+        var idx = Math.max(0, Math.min(SIZES.length - 1, Math.round(Number(lminInput.value) || 0)));
+        lminValue.textContent = String(SIZES[idx]);
+        corrValue.textContent = (Number(corrInput.value) / 100).toFixed(2);
+        var rect = canvas.parentNode.getBoundingClientRect();
+        if (reduceMotion) {
+          animProgress = 1;
+          draw(rect.width, rect.height);
+          return;
+        }
+        // 中文注释：从当前显示值平滑过渡到新估计值
+        animFrom = Number(exponentEl.textContent) || 0;
+        animProgress = 0;
+        animStart = 0;
+        window.requestAnimationFrame(tick);
+      }
+      // 中文注释：事件绑定：全部用 addEventListener，不使用内联 onclick
+      lminInput.addEventListener('input', update);
+      corrInput.addEventListener('input', update);
+      resetBtn.addEventListener('click', function () {
+        lminInput.value = '0';
+        corrInput.value = '25';
+        update();
+      });
+      window.addEventListener('resize', function () {
+        var rect = canvas.parentNode.getBoundingClientRect();
+        draw(rect.width, rect.height);
+      });
+
+      // 中文注释：首次绘制
+      resize();
+      update();
+    })();
+  </script>
+</body>
+</html>
