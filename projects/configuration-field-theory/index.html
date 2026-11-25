@@ -1,0 +1,207 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：项目详情页 —— Configuration Field Theory（2026 年 11 月起的 report）。
+  注意：PDF 标题页写的是 "Draft lecture notes"，本人确认这是笔误，实际是一份普通的
+  report；所以页面上一律称 report / write-up，不要写 lecture notes。
+  PDF 固定放在同目录的 paper.pdf；换新版本同名覆盖即可。
+
+  维护要点：
+  1) 内容依据：PDF 的标题页、Abstract、目录、Introduction（没读全文），只写高层次描述，
+     不写具体数值、不写目标期刊。
+  2) 这是 phase-space-network 那篇论文的"配套报告"：论文给格点上的证明，本报告把同一
+     结论写成场论语言。两页互相链接。
+  3) 内嵌 PDF 用原生 <object>，失败时回落到下载链接。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configuration field theory &mdash; Xu He</title>
+  <meta name="description" content="Report by Xu He: configuration manifolds, operator algebras, and Gaussian spectral laws, a field-theoretic formulation of the Gaussian universality of configuration space networks.">
+  <link rel="canonical" href="https://hexu-phys.github.io/projects/configuration-field-theory/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Xu He">
+  <meta property="og:title" content="Configuration field theory">
+  <meta property="og:description" content="Configuration manifolds, operator algebras, and Gaussian spectral laws: the field-theoretic counterpart of the Gaussian universality of configuration space networks.">
+  <meta property="og:url" content="https://hexu-phys.github.io/projects/configuration-field-theory/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Configuration field theory</h1>
+      <p class="identity">Theory report &middot; Nov 2026 &ndash; present</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../index.html">Projects</a></li>
+          <li><a href="../../cv/index.html">CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <dl class="facts">
+        <dt>Timeline</dt>
+        <dd>Nov 2026 &ndash; present</dd>
+        <dt>Status</dt>
+        <dd><span class="badge">Draft</span></dd>
+        <dt>Role</dt>
+        <dd>Theory: formulation and writing</dd>
+        <dt>Field</dt>
+        <dd>Statistical mechanics of many-body systems; operator algebras; field theory</dd>
+        <dt>Methods</dt>
+        <dd>Operator-algebra formulation; tracial states and spectral measures; cumulant and partition-lattice expansions; path integrals; momentum-space Wilsonian renormalisation</dd>
+        <dt>Setting</dt>
+        <dd>Configuration manifold of fields on a hypertorus, with the integrated local move as an operator on the configuration Hilbert space</dd>
+        <dt>Companion paper</dt>
+        <dd>
+          <a href="../phase-space-network/index.html">Gaussian universality of configuration space networks</a>
+        </dd>
+        <dt>Document</dt>
+        <dd>Report, 26 pages</dd>
+      </dl>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Research question</h2>
+        <p>
+          The companion paper proves that the spectrum of the configuration network of
+          a lattice system is Gaussian, by a moment computation on a finite matrix. That
+          statement is exact but tied to the lattice: the objects it uses are finite
+          matrices, their traces, and their cumulants.
+        </p>
+        <p>
+          The question this report asks is whether the same result can be written as a
+          statement about fields. If a configuration is a field on a torus and an
+          elementary move is an operator-valued field, then the adjacency matrix becomes
+          an integrated operator on the configuration space, and the finite-matrix
+          notions become a tracial state, a spectral measure, and cumulants of the move
+          field. Once the statement is in that language, the standard machinery of
+          statistical and quantum field theory becomes available for configuration space
+          problems.
+        </p>
+      </section>
+
+      <section aria-labelledby="approach-heading">
+        <h2 id="approach-heading">Approach</h2>
+        <p>
+          The report develops a dictionary between three languages: linear algebra on a
+          finite space, operator algebras, and a field theory of configurations. Four
+          steps carry it.
+        </p>
+        <ul>
+          <li>
+            <strong>The configuration field theory itself.</strong> Fields live on a
+            hypertorus, the elementary moves form a local operator-valued field, and the
+            integrated move is both a vector field on the configuration manifold and an
+            operator on the configuration Hilbert space. Translation covariance
+            <em>&Phi;</em>(r + a) = U(a) <em>&Phi;</em>(r) U(a)<sup>&minus;1</sup> makes
+            the operator translation invariant, so it is fibred over the Brillouin zone.
+          </li>
+          <li>
+            <strong>Gaussian spectral laws.</strong> The normalised trace becomes a
+            tracial state, the eigenvalue distribution becomes a spectral measure, and
+            the finite-matrix cumulants become partition-lattice cumulants of the move
+            field. The Gaussian criterion and its variance then take a field-theoretic
+            form, with the variance given by the integral of the connected two-point
+            cumulant.
+          </li>
+          <li>
+            <strong>The theorem as a diagnostic.</strong> Read in the contrapositive, the
+            criterion becomes a percolation statement. A soft-core calculation shows how
+            the range of the interaction controls the crossover between the Gaussian and
+            non-Gaussian regimes, with soft spheres and jamming as the test case.
+          </li>
+          <li>
+            <strong>Dynamics and coarse graining.</strong> The same field is then read
+            dynamically: a Kolmogorov propagator and a time-sliced path integral give an
+            action functional, and the entropy is read off from that action. A
+            momentum-space decomposition, the local differential operator, and a
+            Wilsonian flow extend the treatment to spatially correlated cases, with
+            one-loop diagrams as the first correction.
+          </li>
+        </ul>
+        <p>
+          The lattice results and their proofs are collected in
+          <a href="../phase-space-network/index.html">the companion paper</a>; this
+          report states them in configuration-space language and refers to the paper for
+          the estimates.
+        </p>
+      </section>
+
+      <section aria-labelledby="contribution-heading">
+        <h2 id="contribution-heading">My contribution</h2>
+        <ul>
+          <li>
+            Set up the three-way dictionary between finite matrices, operator algebras,
+            and the configuration field, including the translation-covariant move field
+            and its integrated operator.
+          </li>
+          <li>
+            Rewrote the Gaussian criterion as a statement about the cumulants of that
+            field, and derived the percolation reading and the soft-core crossover from
+            it.
+          </li>
+          <li>
+            Worked out the path-integral entropy and the momentum-space Wilsonian flow,
+            and wrote the report.
+          </li>
+        </ul>
+        <p class="muted">
+          Code and data behind the figures: [Code available upon request].
+        </p>
+      </section>
+
+      <section aria-labelledby="document-heading">
+        <h2 id="document-heading">Report</h2>
+        <!-- 中文注释：PDF 文件名固定为 paper.pdf，换版本直接同名覆盖 -->
+        <p class="pdf-actions">
+          <a class="btn" href="paper.pdf" download>Download the report (PDF)</a>
+          <span class="muted">Current draft, 26 pages</span>
+        </p>
+        <p class="pdf-hint">
+          A working report shared for discussion; not a peer-reviewed publication.
+        </p>
+        <div class="pdf-frame">
+          <object data="paper.pdf" type="application/pdf">
+            <p>
+              Your browser cannot display this PDF inline.
+              <a href="paper.pdf" download>Download the report instead</a>.
+            </p>
+          </object>
+        </div>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">All projects</a>
+        <span class="sep">|</span>
+        <a href="../phase-space-network/index.html">Companion paper</a>
+        <span class="sep">|</span>
+        <a href="../../index.html">Back to home</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>
+        &copy; 2026 Xu He. All rights reserved. This report is shared for discussion; it
+        may not be redistributed or used commercially without written permission.
+      </p>
+      <p>
+        <a href="../../copyright/index.html">Copyright and terms of use</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+%-------------------------
+% Resume in Latex
+% Author : Harshibar
+% Based off of: https://github.com/jakeryang/resume
+% License : MIT
+%------------------------
+
+% 中文注释（2026-10-24 修改记录，仅供维护，不会出现在 PDF 里）：
+% 1) 页眉：按本人要求，把私人 gmail 换成个人网站 hexu-phys.github.io（可点击），
+%    并补回工作邮箱 hexu@ust.hk。想换顺序就调这三行。
+% 2) EXPERIENCE 里与生物学家合作那一栏（Siler collingwoodi）原来把"项目标题"写进
+%    加粗的机构栏、把"合作者说明"写进斜体副标题，和其它条目结构不一致。
+%    现改为：加粗行 = 机构（Zhang Wei Lab, School of Life Sciences, Peking University），
+%    斜体行 = 工作内容，合作者写进 bullet。
+% 3) 最近的 RA 经历：补上具体工作说明，并在最后一行给出技术细节链接
+%    https://hexu-phys.github.io/projects （本人原文写的是 /project，实际路径是 /projects）。
+% 4) 顺手修掉的排版/拼写问题：多处 "xxx- yyy"（连字符后多了空格，如 Cahn- Hilliard、
+%    one- to- one、high- pressure）、"Thoughtout"→"Throughout"、"metho  dologies"、
+%    "10mK"→"10 mK"。
+% 5) Education 一栏原来把 BA 塞进 M.Math 条目、并留着 "| Course List" 占位，
+%    现按当前 PDF 的样式拆成两条（M.Math / BA），日期也按当前 PDF 改为 Sep–Jul。
+% 6) 编译：pdflatex main.tex（需要 latexmk 就 latexmk -pdf main.tex）。
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+% only for pdflatex
+% \input{glyphtounicode}
+
+% fontawesome
+\usepackage{fontawesome5}
+
+% fixed width
+\usepackage[scale=0.90,lf]{FiraMono}
+
+% light-grey
+\definecolor{light-grey}{gray}{0.83}
+\definecolor{dark-grey}{gray}{0.3}
+\definecolor{text-grey}{gray}{.08}
+
+\DeclareRobustCommand{\ebseries}{\fontseries{eb}\selectfont}
+\DeclareTextFontCommand{\texteb}{\ebseries}
+
+% custom underilne
+\usepackage{contour}
+\usepackage[normalem]{ulem}
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+\newcommand{\myuline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+
+
+% custom font: helvetica-style
+\usepackage{tgheros}
+\renewcommand*\familydefault{\sfdefault} 
+%% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{0in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting - serif
+% \titleformat{\section}{
+%   \vspace{2pt} \scshape \raggedright\large % header section
+% }{}{0em}{}[\color{black} \titlerule \vspace{-5pt}]
+
+% TODO EBSERIES
+% sans serif sections
+\titleformat {\section}{
+    \bfseries \vspace{2pt} \raggedright \large % header section
+}{}{0em}{}[\color{light-grey} {\titlerule[2pt]} \vspace{-4pt}]
+
+% only for pdflatex
+% Ensure that generate pdf is machine readable/ATS parsable
+% \pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & {\color{dark-grey}\small #2}\vspace{1pt}\\ % top row of resume entry
+      \textit{#3} & {\color{dark-grey} \small #4}\\ % second row of resume entry
+    \end{tabular*}\vspace{-4pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      #1 & {\color{dark-grey}} \\
+    \end{tabular*}\vspace{-4pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% CHANGED default leftmargin  0.15 in
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{0pt}}
+
+\color{text-grey}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge Xu He} \\ \vspace{5pt}
+    \small \faEnvelope \hspace{2pt} \texttt{xh339@cantab.ac.uk} \hspace{1pt} $|$
+    \hspace{1pt} \faEnvelope \hspace{2pt} \texttt{hexu@ust.hk} \hspace{1pt} $|$
+    \hspace{1pt} \faGlobe \hspace{2pt} \href{https://hexu-phys.github.io}{\texttt{hexu-phys.github.io}} \hspace{1pt} $|$
+    \hspace{1pt} \faPhone* \texttt{+44 7927 651039}
+    \\ \vspace{-3pt}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{EDUCATION}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Christ's College, University of Cambridge}{Sep 2025 - Jul 2026}
+      {Master of Mathematics (M.Maths)}{}
+      \resumeItemListStart
+        \resumeItem{Academic Performance: Part III First with Merit (74/100)}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Christ's College, University of Cambridge}{Sep 2022 - Jul 2025}
+      {Bachelor of Arts (BA) in Natural Sciences}{}
+      \resumeItemListStart
+        \resumeItem{Academic Performance: First Class Throughout; Part IA 71.4/100 (115/565), Part IB 112/545, Part II 78.8/100 (19/129)}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------SCHOLARSHIPS AND AWARDS-----------
+\section{SCHOLARSHIPS AND AWARDS}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Greig Prize, Christ's College, University of Cambridge}{2025}
+      {College Scholar, Christ's College, University of Cambridge}{2022-2026}
+      {}
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{EXPERIENCE}
+  \resumeSubHeadingListStart
+  
+    \resumeSubheading
+      {Department of Physics, Hong Kong University of Science and Technology}{Sep 2026 - Aug 2027}
+      {Research Assistant in Yilong Han Lab}{}
+      \resumeItemListStart
+        \resumeItem{Proved that phase-space (state-space) networks of systems with local correlations admit a universal Gaussian spectrum.}
+        \resumeItem{Collaborated with experimentalists to compute and simulate the rotational Langevin dynamics and the coupling of hexatic and glassy phases in two-dimensional colloidal disks; found that the correlations oscillate in these systems.}
+        \resumeItem{Technical details and project write-ups: \href{https://hexu-phys.github.io/projects}{hexu-phys.github.io/projects}.}
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {DAMTP, University of Cambridge}{Mar - May 2026}
+      {Part III Essay on Pattern Formation in Mixture of Active Passive Particles}{}
+      \resumeItemListStart
+        \resumeItem{Supervised by Prof. Robert Jack. Investigated the breakdown of equilibrium spinodal-binodal relationships in active matter, building upon the reciprocal Cahn-Hilliard model, non-equilibrium extensions, and the active-passive lattice gas. Showed that a generalised free energy enforces a one-to-one correspondence between stationary spinodal and binodal in scalar and reducible multicomponent systems, while identifying parameter regimes where linear instability persists outside global phase separation.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {DAMTP, University of Cambridge}{Jul - Sep 2025}
+      {Research Assistant under Prof. Krippendorf}{}
+      \resumeItemListStart
+        \resumeItem{Applied generative AI and diffusion models to solve inverse problems in string theory flux vacua. Adapted core methodologies from image generation models to reconstruct 8-dimensional flux vectors, implementing and fine-tuning Latent Diffusion Models (LDM) and Continuous Conditional Diffusion Models (CCDM). Developed expertise in model design, hyperparameter optimization, and preprocessing of high-dimensional discrete data, gaining practical experience with PyTorch and advanced neural network architectures.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Zhang Wei Lab, School of Life Sciences, Peking University}{Jul 2023 - Aug 2024}
+      {Research collaboration: theory of the structural colour of Siler collingwoodi}{}
+      \resumeItemListStart
+        \resumeItem{In collaboration with Huize Gao: through simulations and theoretical analysis, identified systematic errors in classical optical models of chitin layers and validated observational data via wavefront and mode analysis.}
+      \resumeItemListEnd
+      
+    \iffalse
+    \resumeSubheading
+      {Institute of Physics, Chinese Academy of Science (CAS)}{Sep 2024}
+      {The 13th National Conference of New Physics}{}
+      \resumeItemListStart
+        \resumeItem{Attended the summer school covering modern dark matter candidates and cosmological detection techniques (21cm, FAST, TianQin).}
+      \resumeItemListEnd
+    \fi 
+    
+    \resumeSubheading
+      {Institute of Physics, Chinese Academy of Science (CAS)}{Jul - Aug 2023}
+      {International Conference on Physics under Synergetic Extreme Conditions}{}
+      \resumeItemListStart
+        \resumeItem{Participated in the summer school, gaining exposure to high-pressure (diamond anvil cells) and ultra-low-temperature (10 mK) experimental techniques for quantum materials.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------SKILLS-----------
+\section{SKILLS}
+ \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Programming}: Python (NumPy, SciPy, PyTorch), LaTeX \vspace{2pt} \\
+     \textbf{Machine Learning}: Neural Networks (CNNs, VAEs), Diffusion Models (LDM, CCDM)
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}

@@ -1,0 +1,212 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：研究项目详情页 —— 2024-project-method（可复现分析流程 / reproducible pipeline）。
+  与 2025-project-scaling 共用同一套结构，只是换了研究问题与媒体内容：
+  静态流程图（SVG）+ 自包含管道动画（iframe）。
+  维护要点：
+  1) 本页不涉及新物理结果，重点是工程与可复现性，最安全、最容易公开。
+  2) 引用的本地文件：
+     ../../assets/img/2024-project-method-fig1.svg
+     ../../assets/anim/2024-project-method.html
+     ../../assets/pdf/2024-project-method-note.pdf
+  3) 占位符清单见 NOTES.zh.md。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 中文注释：本栏目尚未定稿、暂时不对外，加 noindex 防止被搜索引擎收录；
+       恢复栏目时删掉这一行即可（同时把 sitemap 与导航改回来）。 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Reproducible pipeline for [Method] — Research — [Your Name]</title>
+  <meta name="description" content="Research project: a documented, re-runnable pipeline that converts raw simulation output into derived quantities and publication-quality figures.">
+  <link rel="canonical" href="https://hexu-phys.github.io/research/2024-project-method/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="[Your Name]">
+  <meta property="og:title" content="Reproducible pipeline for [Method]">
+  <meta property="og:description" content="A documented, re-runnable workflow from raw simulation output to publication-quality figures.">
+  <meta property="og:url" content="https://hexu-phys.github.io/research/2024-project-method/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <p class="muted"><a href="../index.html">Research</a> / Project</p>
+      <h1>Reproducible pipeline for [Method]</h1>
+      <p class="identity">From raw simulation output to derived quantities and figures, from a single configuration file</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../index.html" aria-current="page">Research</a></li>
+          <li><a href="../../projects/index.html">Projects</a></li>
+          <li><a href="../../cv/index.html">CV</a></li>
+          <li><a href="../../notes/index.html">Notes</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section aria-labelledby="facts-heading">
+        <h2 id="facts-heading" class="visually-hidden">Project details</h2>
+        <dl class="facts">
+          <dt>Collaborators</dt>
+          <dd>Developed within [Lab or Group] for the group's analysis needs. Advisor: [Advisor Name]. Additional collaborators available upon request.</dd>
+          <dt>Timeline</dt>
+          <dd>[Month Year] &ndash; [Month Year]</dd>
+          <dt>Status</dt>
+          <dd><span class="badge">Completed</span></dd>
+          <dt>Role</dt>
+          <dd>[Role] &mdash; design, implementation, documentation, and onboarding of other users.</dd>
+          <dt>Research area</dt>
+          <dd>Computational methods for [Research Area]; reproducibility tooling.</dd>
+        </dl>
+
+        <p class="entry-links">
+          <span class="muted">Links:</span>
+          <span>[Summary available upon request]</span>
+          <span class="sep">|</span>
+          <span>[Code available upon request]</span>
+          <span class="sep">|</span>
+          <span>[Technical note available upon request]</span>
+        </p>
+      </section>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Research question</h2>
+        <p>
+          Analyses drift. A figure produced six months ago is often impossible to
+          regenerate exactly, because the steps lived in shell history, notebook
+          cells, and manual edits. This project asked a practical question: what is
+          the smallest amount of structure that makes an analysis for [Method]
+          re-runnable by someone who did not write it, without slowing down the
+          person who did?
+        </p>
+      </section>
+
+      <section aria-labelledby="methods-heading">
+        <h2 id="methods-heading">Methods</h2>
+        <ul>
+          <li>Decomposed the existing analysis into four stages: ingest, validate, derive, render.</li>
+          <li>Defined an explicit data contract for each stage, with schema checks on inputs and outputs.</li>
+          <li>Moved every tunable choice into a single configuration file, including fit windows and plot ranges.</li>
+          <li>Added a regression test that regenerates a figure from a small archived dataset and compares against a stored reference.</li>
+          <li>Wrote handover documentation and walked two group members through a full reproduction.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="tools-heading">
+        <h2 id="tools-heading">Tools</h2>
+        <ul>
+          <li>[Python] for the pipeline; [pandas] for tabular stages.</li>
+          <li>[Make] as the single entry point, so each stage can be re-run in isolation.</li>
+          <li>[Matplotlib] for all figures, with a shared style file.</li>
+          <li>[Git] with one branch per analysis revision; [Environment file] to pin versions.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contribution-heading">
+        <h2 id="contribution-heading">My contribution</h2>
+        <ul>
+          <li>Designed the four-stage decomposition and the configuration schema.</li>
+          <li>Implemented the pipeline and the schema validation, including clear failure messages.</li>
+          <li>Produced the pipeline diagram and the written technical note.</li>
+          <li>Trained other group members on the workflow and collected their feedback into the documentation.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="results-heading">
+        <h2 id="results-heading">Results (high level)</h2>
+        <p>
+          The reorganized pipeline regenerates every figure in the analysis from raw
+          output, with no manual intermediate steps. Reproduction time for a new
+          group member dropped from roughly a week of informal guidance to a single
+          documented session, and the regression test now catches silent changes in
+          derived quantities. [Result summary]
+        </p>
+        <div class="note-box">
+          <p><strong>What I can share now.</strong> The design, the stage structure,
+          the tooling, and the documentation approach &mdash; all shown below as a
+          schematic. The repository itself is internal and available upon request.</p>
+        </div>
+      </section>
+
+      <section id="media" aria-labelledby="media-heading">
+        <h2 id="media-heading">Figures</h2>
+
+        <figure class="media">
+          <img src="../../assets/img/2024-project-method-fig1.svg"
+               alt="Schematic pipeline diagram with four stages: ingest raw output, validate against a schema, derive quantities with uncertainties, render figures."
+               loading="lazy" decoding="async">
+          <figcaption>
+            Figure 1. The four stages of the pipeline. Each stage has an explicit
+            data contract, and every stage can be re-run on its own from the
+            command line.
+          </figcaption>
+        </figure>
+
+        <!-- 中文注释：自包含动画，sandbox 只给 allow-scripts，不给 allow-same-origin -->
+        <figure class="media">
+          <div class="anim-frame">
+            <iframe src="../../assets/anim/2024-project-method.html"
+                    title="Interactive figure: stepping through the four pipeline stages"
+                    loading="lazy"
+                    sandbox="allow-scripts"
+                    referrerpolicy="no-referrer"></iframe>
+          </div>
+          <figcaption>
+            Figure 2. Interactive figure. Step through the four stages to see what
+            each one validates and what it passes on. All content is generated
+            inside the figure; no project data are included.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Technical note</h2>
+        <p class="muted">
+          The technical note describes the stage contracts and the choices behind
+          them. The PDF below is a placeholder that states the same thing.
+        </p>
+
+        <p class="pdf-actions">
+          <a class="btn" href="../../assets/pdf/2024-project-method-note.pdf" download>Download technical note (PDF)</a>
+          <span class="muted">Placeholder file &mdash; content available upon request</span>
+        </p>
+
+        <!-- 中文注释：优先用 <object>，失败时回落到提示 + 下载链接 -->
+        <div class="pdf-frame">
+          <object data="../../assets/pdf/2024-project-method-note.pdf" type="application/pdf">
+            <p>
+              Your browser cannot display this PDF inline.
+              <a href="../../assets/pdf/2024-project-method-note.pdf" download>Download the technical note</a>.
+            </p>
+          </object>
+        </div>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">Back to research overview</a>
+        <span class="sep">|</span>
+        <a href="../../projects/index.html">Related project portfolio entry</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>&copy; 2025 [Your Name]. Repository contents are shared only with approval.</p>
+      <p><a href="../../index.html">Home</a> <span class="sep">|</span> <a href="mailto:[email@example.com]">Contact</a></p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

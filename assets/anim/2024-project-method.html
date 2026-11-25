@@ -1,0 +1,260 @@
+<!doctype html>
+<!-- 中文注释：
+  本文件用途：2024-project-method 项目的自包含交互动画。
+  内容：四个分析阶段的"逐步讲解"视图（Ingest / Validate / Derive / Render），
+  可以用按钮或键盘左右方向键切换，并显示每个阶段的输入、检查项、输出。
+  维护要点：
+  1) 零外部依赖、零网络请求；数据全部内联在 PAGES 常量里。
+  2) 由于是 <iframe sandbox="allow-scripts">，不能访问父页面，也不用 history/localStorage。
+  3) 键盘可操作（左右方向键 + Enter/Space），并在 prefers-reduced-motion 下取消过渡动画。
+  4) 页面内部响应式：窄屏时把阶段条改成纵向。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive figure: stepping through the four pipeline stages</title>
+  <meta name="robots" content="noindex">
+  <style>
+    /* 中文注释：动画页自有样式，配色与母站一致 */
+    :root {
+      --text: #1f2328;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --link: #1a5fb4;
+      --bg: #ffffff;
+      --panel: #f8f9fa;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 12px 12px;
+    }
+    h1 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+
+    /* 中文注释：阶段条 */
+    ol.stages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: 12px;
+    }
+    ol.stages button {
+      font: inherit;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      cursor: pointer;
+    }
+    ol.stages button[aria-current="step"] {
+      color: var(--text);
+      font-weight: 600;
+      border-color: var(--link);
+      background: #fff;
+    }
+
+    .panel {
+      flex: 1 1 auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      min-height: 0;
+      overflow: auto;
+    }
+    .panel h2 { font-size: 13px; margin: 0 0 6px; }
+    .panel h3 { font-size: 11.5px; margin: 8px 0 2px; color: var(--muted); font-weight: 600; }
+    .panel p { margin: 0 0 6px; }
+    .panel ul { margin: 0; padding-left: 18px; }
+    .panel li { margin-bottom: 2px; }
+
+    .nav { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; }
+    .nav .spacer { flex: 1 1 auto; }
+    .nav button {
+      font: inherit;
+      font-size: 12px;
+      color: var(--link);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 12px;
+      cursor: pointer;
+    }
+    .nav button:hover { background: var(--panel); }
+    .nav button[disabled] { color: #c3c8cf; cursor: default; background: #fff; }
+    .hint { color: var(--muted); font-size: 11.5px; margin: 8px 0 0; }
+    :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+    @media (max-width: 640px) {
+      ol.stages { flex-direction: column; }
+      ol.stages li { width: 100%; }
+      ol.stages button { width: 100%; text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .panel { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Four validated stages</h1>
+
+  <!-- 中文注释：阶段导航条，用 button 实现，支持键盘操作 -->
+  <ol class="stages" id="stages">
+    <li><button type="button" data-index="0">1. Ingest</button></li>
+    <li><button type="button" data-index="1">2. Validate</button></li>
+    <li><button type="button" data-index="2">3. Derive</button></li>
+    <li><button type="button" data-index="3">4. Render</button></li>
+  </ol>
+
+  <div class="panel" id="panel" tabindex="0" role="region" aria-live="polite" aria-label="Stage description">
+    <h2 id="stage-title"></h2>
+    <p id="stage-summary"></p>
+    <h3>Input</h3>
+    <p id="stage-input"></p>
+    <h3>Checks performed</h3>
+    <ul id="stage-checks"></ul>
+    <h3>Output</h3>
+    <p id="stage-output"></p>
+  </div>
+
+  <div class="nav">
+    <button type="button" id="prev">Previous</button>
+    <button type="button" id="next">Next</button>
+    <span class="spacer"></span>
+    <span id="counter" class="hint"></span>
+  </div>
+  <p class="hint">Use the buttons, or the left and right arrow keys.</p>
+
+  <script>
+    // 中文注释：
+    // 四个阶段的自包含内容。数组索引与阶段条按钮的 data-index 一一对应。
+    // 这里描述的是方法与流程，不含任何项目数值或代码片段。
+    (function () {
+      'use strict';
+
+      var STAGES = [
+        {
+          title: '1. Ingest',
+          summary: 'Read raw simulation output exactly as written, without transforming it.',
+          input: 'Raw output files from the production runs, one directory per campaign.',
+          checks: [
+            'Every expected run directory is present, and nothing else was added by hand.',
+            'File modification times match the recorded launch times.',
+            'Raw data are opened read-only and are never overwritten by later stages.'
+          ],
+          output: 'An immutable, indexed table of raw records plus a listing of any missing runs.'
+        },
+        {
+          title: '2. Validate',
+          summary: 'Check the ingested data against an explicit schema before any physics is computed.',
+          input: 'The indexed raw records from stage 1.',
+          checks: [
+            'Required columns are present, with the expected units and value ranges.',
+            'System sizes and parameter values match the campaign configuration.',
+            'Sample counts per run are large enough for the planned uncertainty estimate.'
+          ],
+          output: 'A validated dataset, or a readable list of failures that names the offending run.'
+        },
+        {
+          title: '3. Derive',
+          summary: 'Compute the quantities of interest while keeping error contributions separate.',
+          input: 'The validated dataset from stage 2, plus fit windows from the configuration file.',
+          checks: [
+            'Statistical errors come from resampling the underlying samples, not the fitted points.',
+            'Systematic variations are applied one at a time and recorded separately.',
+            'Each derived quantity records the configuration hash that produced it.'
+          ],
+          output: 'Derived quantities with two independent error columns and full provenance.'
+        },
+        {
+          title: '4. Render',
+          summary: 'Produce every figure and table from the derived quantities, with no manual editing.',
+          input: 'Derived quantities from stage 3 and the plotting configuration.',
+          checks: [
+            'Each figure is generated by a script and registered in the figure manifest.',
+            'Axis ranges come from the configuration file, not from interactive tooling.',
+            'A regression test compares regenerated figures against stored references.'
+          ],
+          output: 'Final figures, tables, and a manifest mapping each output to its inputs.'
+        }
+      ];
+
+      var buttons = document.querySelectorAll('#stages button');
+      var titleEl = document.getElementById('stage-title');
+      var summaryEl = document.getElementById('stage-summary');
+      var inputEl = document.getElementById('stage-input');
+      var checksEl = document.getElementById('stage-checks');
+      var outputEl = document.getElementById('stage-output');
+      var counterEl = document.getElementById('counter');
+      var prevBtn = document.getElementById('prev');
+      var nextBtn = document.getElementById('next');
+      var panel = document.getElementById('panel');
+
+      var index = 0;
+
+      // 中文注释：渲染指定阶段的内容到面板，并同步按钮的 aria-current 与前后按钮状态
+      function render(next) {
+        index = Math.max(0, Math.min(STAGES.length - 1, next));
+        var stage = STAGES[index];
+
+        titleEl.textContent = stage.title;
+        summaryEl.textContent = stage.summary;
+        inputEl.textContent = stage.input;
+        outputEl.textContent = stage.output;
+
+        checksEl.textContent = '';
+        for (var i = 0; i < stage.checks.length; i++) {
+          var li = document.createElement('li');
+          li.textContent = stage.checks[i];
+          checksEl.appendChild(li);
+        }
+
+        for (var b = 0; b < buttons.length; b++) {
+          if (b === index) {
+            buttons[b].setAttribute('aria-current', 'step');
+          } else {
+            buttons[b].removeAttribute('aria-current');
+          }
+        }
+
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === STAGES.length - 1;
+        counterEl.textContent = 'Stage ' + (index + 1) + ' of ' + STAGES.length;
+      }
+
+      // 中文注释：事件绑定（不使用内联 onclick）
+      for (var i = 0; i < buttons.length; i++) {
+        (function (button) {
+          button.addEventListener('click', function () {
+            render(Number(button.getAttribute('data-index')));
+            panel.focus();
+          });
+        })(buttons[i]);
+      }
+
+      prevBtn.addEventListener('click', function () { render(index - 1); });
+      nextBtn.addEventListener('click', function () { render(index + 1); });
+
+      // 中文注释：键盘导航（左右方向键），在面板或按钮获得焦点时可用
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowRight') { render(index + 1); }
+        if (event.key === 'ArrowLeft') { render(index - 1); }
+      });
+
+      render(0);
+    })();
+  </script>
+</body>
+</html>

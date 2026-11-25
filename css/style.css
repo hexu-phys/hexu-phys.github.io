@@ -1,0 +1,492 @@
+/* 中文注释：
+   全站唯一样式表。所有颜色、间距、字体、圆角都集中在下面 :root 里，
+   以后想统一改配色/字号，只改这一段即可。
+   维护要点：
+   1) 内部资源一律相对路径，本文件里引用图片用 ../assets/... 形式（本文件在 /css/ 下）。
+   2) 断点：手机 <640px、平板 640–960px、桌面 >960px。
+   3) 视觉规范来自 prompt 第 4 节：760px 版心、8px 基准间距、6px 圆角、1px 边框、
+      17px 正文、极简微动效；不要加 fade-in / scroll reveal / 视差。
+   4) 末尾 @media print 只在 cv/ 页面生效（body 带 cv-page 类），保证打印干净。
+*/
+
+/* 中文注释：设计变量集中定义区 */
+:root {
+  --text: #1f2328;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --link: #1a5fb4;
+  --bg: #ffffff;
+  --bg-subtle: #f8f9fa;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, .04);
+
+  --font-sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", "Songti SC", serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --size-h1: 2rem;
+  --size-h2: 1.3rem;
+  --size-h3: 1.05rem;
+  --size-body: 1.0625rem;
+  --size-small: .875rem;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+
+  --radius: 6px;
+  --measure: 760px;
+  --line: 1px solid var(--border);
+  --ease: .12s ease;
+}
+
+/* 中文注释：基础重置与页面底色 */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 20px 96px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: .01em;
+  text-rendering: optimizeLegibility;
+}
+
+/* 中文注释：版心容器，所有内容都限制在 760px 内并水平居中 */
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 0 var(--space-1);
+}
+
+/* 中文注释：站点头部（姓名/机构区），顶部留白充足 */
+.site-head {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-2);
+}
+
+.site-head h1 {
+  font-family: var(--font-serif);
+  font-size: var(--size-h1);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 var(--space-1);
+  letter-spacing: .005em;
+}
+
+/* 中文注释：姓名下方的一行身份说明 */
+.identity {
+  font-size: var(--size-body);
+  color: var(--text);
+  margin: 0 0 var(--space-1);
+}
+
+/* 中文注释：辅助/次要文字统一用 muted 色 */
+.muted {
+  color: var(--muted);
+  font-size: var(--size-small);
+}
+
+p { margin: 0 0 var(--space-2); }
+
+/* 中文注释：章节标题（h2）带 1px 下边框，学术主页常见的分隔做法 */
+h2 {
+  font-family: var(--font-serif);
+  font-size: var(--size-h2);
+  font-weight: 600;
+  line-height: 1.35;
+  margin: var(--space-5) 0 var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: var(--line);
+}
+
+h3 {
+  font-size: var(--size-h3);
+  font-weight: 600;
+  line-height: 1.4;
+  margin: var(--space-3) 0 var(--space-1);
+}
+
+/* 中文注释：列表统一左内边距，避免贴边 */
+ul, ol { margin: 0 0 var(--space-2); padding-left: 1.25em; }
+li { margin-bottom: var(--space-1); }
+li:last-child { margin-bottom: 0; }
+
+/* 中文注释：链接样式——自定义蓝，hover 加下划线，绝不使用默认蓝色 */
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color var(--ease), background-color var(--ease), border-color var(--ease);
+}
+a:hover { text-decoration: underline; }
+
+/* 中文注释：键盘焦点可见（不要去掉焦点样式） */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 中文注释：跳到主内容的无障碍链接，平时隐藏，获得焦点时出现 */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--bg);
+  border: var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--size-small);
+}
+.skip-link:focus { left: var(--space-2); top: var(--space-1); z-index: 10; }
+
+/* 中文注释：顶部导航——一行水平排列，允许移动端换行，不做汉堡菜单 */
+nav.site-nav {
+  border-bottom: var(--line);
+  margin-bottom: var(--space-4);
+}
+nav.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--space-2);
+  font-size: .95rem;
+}
+nav.site-nav a { color: var(--link); }
+
+/* 中文注释：当前页导航项加粗并去掉链接色，表示"当前位置" */
+nav.site-nav a[aria-current="page"] {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* 中文注释：联系方式一行（邮箱 / GitHub / Scholar / ORCID） */
+.contact-line {
+  font-size: var(--size-small);
+  line-height: 1.9;
+  margin: 0 0 var(--space-2);
+}
+.contact-line .sep { color: var(--border); padding: 0 var(--space-1); }
+
+/* 中文注释：项目/条目列表——每条一个块，年份倒序排列 */
+.entry-list { list-style: none; margin: 0; padding: 0; }
+.entry {
+  padding: var(--space-2) 0;
+  border-bottom: var(--line);
+}
+.entry:last-child { border-bottom: 0; }
+
+/* 中文注释：条目标题行：主题 + 右侧年份/状态 */
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+  justify-content: space-between;
+}
+.entry-title {
+  font-size: var(--size-h3);
+  font-weight: 600;
+  margin: 0;
+}
+.entry-meta {
+  font-size: var(--size-small);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.entry-desc { margin: var(--space-1) 0 0; }
+.entry-links { margin: var(--space-1) 0 0; font-size: var(--size-small); }
+
+/* 中文注释：普通年份分组小标题（不抢 h2 的视觉层级） */
+.year-group {
+  font-size: var(--size-small);
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: var(--space-4) 0 0;
+}
+
+/* 中文注释：
+   项目详情页字段表（Collaborators / Timeline / Status / Role ...）。
+   用 <dl> 承载，桌面两列、窄屏自动变单列。
+*/
+.facts {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin: 0 0 var(--space-3);
+  font-size: var(--size-small);
+}
+.facts dt {
+  color: var(--muted);
+  font-weight: 600;
+}
+.facts dd { margin: 0; }
+
+/* 中文注释：状态徽标（Ongoing / Completed），只用边框，不用彩色按钮 */
+.badge {
+  display: inline-block;
+  border: var(--line);
+  border-radius: var(--radius);
+  padding: 1px var(--space-1);
+  font-size: .8125rem;
+  color: var(--muted);
+  background: var(--bg-subtle);
+}
+
+/* 中文注释：项目摘要/技术说明文档的提示块 */
+.note-box {
+  border: var(--line);
+  border-left: 3px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-subtle);
+  padding: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--text);
+  margin: 0 0 var(--space-3);
+}
+
+/* 中文注释：统一的媒体容器，GIF / 视频 / iframe 动画共用同一套边框圆角 */
+.media { margin: var(--space-4) 0; }
+.media img,
+.media video,
+.media svg,
+.anim-frame,
+.pdf-frame {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: var(--line);
+  border-radius: var(--radius);
+  display: block;
+  background: var(--bg);
+}
+.media figcaption {
+  font-size: var(--size-small);
+  color: var(--muted);
+  margin-top: var(--space-1);
+}
+
+/* 中文注释：自包含 HTML 动画的 iframe 容器，用 aspect-ratio 控制高度 */
+.anim-frame {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  padding: 0;
+}
+.anim-frame iframe {
+  border: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 中文注释：PDF 内联查看区；桌面 70vh、移动端 60vh */
+.pdf-frame {
+  min-height: 70vh;
+  overflow: hidden;
+  padding: 0;
+}
+.pdf-frame object,
+.pdf-frame embed,
+.pdf-frame iframe {
+  display: block;
+  width: 100%;
+  min-height: 70vh;
+  border: 0;
+}
+.pdf-frame p { padding: var(--space-2); }
+
+/* 中文注释：PDF 上方的动作行（下载直链永远可见） */
+.pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: var(--size-small);
+}
+.pdf-hint { color: var(--muted); font-size: var(--size-small); margin: 0 0 var(--space-2); }
+
+/* 中文注释：下载 / 复制按钮——朴素描边，不用彩色填充按钮 */
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-size: var(--size-small);
+  color: var(--link);
+  background: var(--bg);
+  border: var(--line);
+  border-radius: var(--radius);
+  padding: 4px var(--space-2);
+  cursor: pointer;
+  transition: background-color var(--ease), border-color var(--ease);
+}
+.btn:hover { background: var(--bg-subtle); text-decoration: none; }
+
+/* 中文注释：代码块（技术说明 / 命令示例） */
+pre {
+  font-family: var(--font-mono);
+  font-size: .875rem;
+  line-height: 1.6;
+  background: var(--bg-subtle);
+  border: var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  overflow-x: auto;
+  margin: 0 0 var(--space-2);
+  box-shadow: var(--shadow-soft);
+}
+code {
+  font-family: var(--font-mono);
+  font-size: .9em;
+  background: var(--bg-subtle);
+  border-radius: 4px;
+  padding: .1em .35em;
+}
+pre code { background: none; padding: 0; }
+
+/* 中文注释：可折叠的技术笔记（用原生 details，无 JS 也能用） */
+details.disclosure {
+  border: var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+details.disclosure > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--size-h3);
+}
+details.disclosure > summary::marker { color: var(--muted); }
+details.disclosure[open] > summary { margin-bottom: var(--space-2); }
+
+/* 中文注释：数据表（技能/工具清单等） */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--size-small);
+  margin: 0 0 var(--space-3);
+}
+th, td {
+  text-align: left;
+  padding: var(--space-1);
+  border-bottom: var(--line);
+  vertical-align: top;
+}
+th { font-weight: 600; color: var(--muted); }
+
+/* 中文注释：页脚，底部留白不小于 96px（body padding-bottom 已保证） */
+.site-foot {
+  margin-top: var(--space-6);
+  padding-top: var(--space-2);
+  border-top: var(--line);
+  font-size: var(--size-small);
+  color: var(--muted);
+}
+.site-foot p { margin: 0 0 var(--space-1); }
+
+/* 中文注释：返回上级的链接行 */
+.back-link { font-size: var(--size-small); margin-top: var(--space-4); }
+
+/* 中文注释：屏幕阅读器专用文本（不可见但可读） */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 中文注释：打印时隐藏交互装饰，并显示外链地址 */
+.print-only { display: none; }
+
+/* 中文注释：平板断点 640–960px */
+@media (max-width: 960px) {
+  :root { --measure: 700px; }
+}
+
+/* 中文注释：手机断点 <640px，缩小留白与字号阶梯 */
+@media (max-width: 640px) {
+  body { font-size: 16px; padding: 0 20px 96px; }
+  :root { --size-h1: 1.65rem; --size-h2: 1.2rem; }
+  .site-head { padding-top: var(--space-5); }
+  h2 { margin-top: var(--space-4); }
+  .facts { grid-template-columns: 1fr; gap: 2px var(--space-2); }
+  .facts dt { margin-top: var(--space-1); }
+  .pdf-frame, .pdf-frame object, .pdf-frame embed, .pdf-frame iframe { min-height: 60vh; }
+  .anim-frame { aspect-ratio: 4 / 3; }
+}
+
+/* 中文注释：
+   打印样式：仅在 cv/ 页面（body.cv-page）生效。
+   去掉导航、按钮、彩色，字号缩小，避免条目跨页断裂。
+*/
+@media print {
+  @page { margin: 14mm 14mm; }
+
+  body.cv-page {
+    background: #fff;
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    padding: 0;
+    letter-spacing: 0;
+  }
+
+  body.cv-page .wrap { max-width: none; }
+
+  body.cv-page nav.site-nav,
+  body.cv-page .skip-link,
+  body.cv-page .btn,
+  body.cv-page .pdf-actions,
+  body.cv-page .pdf-hint,
+  body.cv-page .pdf-frame,
+  body.cv-page video,
+  body.cv-page iframe,
+  body.cv-page .no-print { display: none !important; }
+  body.cv-page .print-only { display: block; }
+
+  body.cv-page a,
+  body.cv-page a:visited { color: #000; text-decoration: none; }
+
+  body.cv-page h1 { font-size: 17pt; }
+  body.cv-page h2 {
+    font-size: 12pt;
+    margin: 12pt 0 4pt;
+    padding-bottom: 2pt;
+    border-bottom: 1px solid #000;
+    break-after: avoid;
+  }
+  body.cv-page h3 { font-size: 10.5pt; margin: 8pt 0 2pt; break-after: avoid; }
+
+  body.cv-page .entry,
+  body.cv-page .facts,
+  body.cv-page li,
+  body.cv-page table { break-inside: avoid; }
+
+  body.cv-page .facts { grid-template-columns: 130px 1fr; gap: 0 10pt; }
+  body.cv-page .note-box { background: none; border: 1px solid #999; }
+  body.cv-page .site-foot { border-top: 1px solid #000; }
+}

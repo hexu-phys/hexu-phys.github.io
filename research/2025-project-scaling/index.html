@@ -1,0 +1,235 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：研究项目详情页 —— 2025-project-scaling（有限尺寸标度 / finite-size scaling）。
+  这是本站项目详情页的"标准模板"，复制它即可新建项目页。
+  页面结构：主题标题 h1 → 字段表(.facts) → Links 行 → Research question →
+  Methods → Tools → My contribution → Results (high level) → 可公开内容说明 →
+  Media(图形 + 交互动画) → Project summary(PDF) → 返回链接。
+  维护要点：
+  1) 标题写"项目主题"，不是论文标题；不要出现期刊名、投稿状态、双盲信息。
+  2) 没有公开预印本/DOI，所以本页刻意不做 Abstract / BibTeX / 复制引用按钮。
+  3) slug 目录名必须是 年份-project-短主题，全小写、连字符分隔。
+  4) 本页引用的本地文件（相对路径，页面在 ../ 两级下）：
+     ../../assets/img/2025-project-scaling-fig1.svg
+     ../../assets/anim/2025-project-scaling.html
+     ../../assets/pdf/2025-project-scaling-summary.pdf
+     修改文件名时三处要同步改。
+  5) 占位符：[Observable] / [Method 1..2] / [Advisor Name] / [Collaborator] /
+     [System Size] / [Result summary] / [Role]。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 中文注释：本栏目尚未定稿、暂时不对外，加 noindex 防止被搜索引擎收录；
+       恢复栏目时删掉这一行即可（同时把 sitemap 与导航改回来）。 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Finite-size scaling of [Observable] — Research — [Your Name]</title>
+  <meta name="description" content="Research project: estimating a critical exponent for [Observable] from a system-size series, with a focus on finite-size corrections and uncertainty quantification.">
+  <link rel="canonical" href="https://hexu-phys.github.io/research/2025-project-scaling/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="[Your Name]">
+  <meta property="og:title" content="Finite-size scaling of [Observable]">
+  <meta property="og:description" content="Estimating a critical exponent from a system-size series, with uncertainty quantification.">
+  <meta property="og:url" content="https://hexu-phys.github.io/research/2025-project-scaling/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <p class="muted"><a href="../index.html">Research</a> / Project</p>
+      <h1>Finite-size scaling of [Observable]</h1>
+      <p class="identity">Estimating a critical exponent from a system-size series, with explicit uncertainty quantification</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../index.html" aria-current="page">Research</a></li>
+          <li><a href="../../projects/index.html">Projects</a></li>
+          <li><a href="../../cv/index.html">CV</a></li>
+          <li><a href="../../notes/index.html">Notes</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- 中文注释：项目字段表。合作者/导师默认仅写"available upon request"，除非已获许可。 -->
+      <section aria-labelledby="facts-heading">
+        <h2 id="facts-heading" class="visually-hidden">Project details</h2>
+        <dl class="facts">
+          <dt>Collaborators</dt>
+          <dd>Work carried out in [Lab or Group] with [Advisor Name]. Names of additional collaborators available upon request.</dd>
+          <dt>Timeline</dt>
+          <dd>[Month Year] &ndash; present</dd>
+          <dt>Status</dt>
+          <dd><span class="badge">Ongoing</span></dd>
+          <dt>Role</dt>
+          <dd>[Role] &mdash; analysis design, pipeline implementation, and figure production.</dd>
+          <dt>Research area</dt>
+          <dd>[Research Area]; numerical study of [Broad Physical System].</dd>
+        </dl>
+
+        <!-- 中文注释：可公开链接行。默认全部为"available upon request"，get 到许可后再换成真实链接。 -->
+        <p class="entry-links">
+          <span class="muted">Links:</span>
+          <span>[Summary available upon request]</span>
+          <span class="sep">|</span>
+          <span>[Code available upon request]</span>
+          <span class="sep">|</span>
+          <span>[Poster available upon request]</span>
+          <span class="sep">|</span>
+          <span>[Slides available upon request]</span>
+        </p>
+      </section>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Research question</h2>
+        <p>
+          How does [Observable] behave as the system size grows, and what exponent
+          governs that behaviour? Finite systems distort the estimate: the smallest
+          sizes carry corrections that are easy to mistake for the asymptotic
+          answer. The project asks whether a consistent exponent can be extracted
+          from the sizes available, and how large the residual systematic
+          uncertainty is once those corrections are modelled explicitly.
+        </p>
+      </section>
+
+      <section aria-labelledby="methods-heading">
+        <h2 id="methods-heading">Methods</h2>
+        <ul>
+          <li>Designed a system-size series spanning [System Size] values, with matched parameters across sizes.</li>
+          <li>Applied [Method 1] to obtain [Observable] per size, with error bars derived from independent samples.</li>
+          <li>Fitted the size dependence with an explicit leading correction term, and compared against the uncorrected fit.</li>
+          <li>Estimated the final uncertainty by resampling measurements, and supplemented it with the spread across fit windows.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="tools-heading">
+        <h2 id="tools-heading">Tools</h2>
+        <ul>
+          <li>[Python] with [NumPy] and [SciPy] for the analysis pipeline.</li>
+          <li>[C/C++ or Fortran] simulation code, built with [Build System].</li>
+          <li>[MPI] and [SLURM] on a shared cluster for the production runs.</li>
+          <li>[Git] for version control, with one configuration file per campaign.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contribution-heading">
+        <h2 id="contribution-heading">My contribution</h2>
+        <ul>
+          <li>Specified the size series and the parameter-matching scheme used across sizes.</li>
+          <li>Implemented the resampling and fitting pipeline, including automated diagnostic checks on each fit.</li>
+          <li>Produced the scaling-collapse figure and the supporting uncertainty tables.</li>
+          <li>Documented the workflow so that a new campaign can be launched from a single configuration file.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="results-heading">
+        <h2 id="results-heading">Results (high level)</h2>
+        <p>
+          The size series is consistent with a single dominant exponent once the
+          leading correction is included; omitting that correction shifts the
+          estimate by substantially more than the statistical error.
+          [Result summary] &mdash; the quantitative values are not published here
+          while the work is with the group, but the qualitative behaviour and the
+          method are summarized in the figure below.
+        </p>
+        <div class="note-box">
+          <p><strong>What I can share now.</strong> The research question, the
+          methods, the toolchain, and my own contribution &mdash; plus figures that
+          contain no unpublished numerical values. Specific results, code, and data
+          links are available upon request with my advisor's approval.</p>
+        </div>
+      </section>
+
+      <!-- 中文注释：id="media" 供首页与 Research 总览页的"Interactive figure"锚点链接使用 -->
+      <section id="media" aria-labelledby="media-heading">
+        <h2 id="media-heading">Figures</h2>
+
+        <!-- 中文注释：静态示意图（SVG 占位，真实图请替换为同名文件或改 src） -->
+        <figure class="media">
+          <img src="../../assets/img/2025-project-scaling-fig1.svg"
+               alt="Schematic scaling-collapse plot: measurements at three system sizes plotted against a scaled variable, with an illustrative fit line."
+               loading="lazy" decoding="async">
+          <figcaption>
+            Figure 1. Schematic of the scaling-collapse procedure: measurements at
+            different system sizes are plotted against a scaled variable so that
+            they overlap. The axis labels are generic and the values are
+            illustrative; no unpublished data are shown.
+          </figcaption>
+        </figure>
+
+        <!-- 中文注释：
+             用 iframe 嵌入自包含动画。
+             sandbox="allow-scripts" 允许脚本运行，但故意不给 allow-same-origin，
+             这样动画脚本无法访问父页面 DOM 或同源存储，更安全。
+             不给 allow-top-navigation。
+        -->
+        <figure class="media">
+          <div class="anim-frame">
+            <iframe src="../../assets/anim/2025-project-scaling.html"
+                    title="Interactive figure: effect of the fit window on the estimated exponent"
+                    loading="lazy"
+                    sandbox="allow-scripts"
+                    referrerpolicy="no-referrer"></iframe>
+          </div>
+          <figcaption>
+            Figure 2. Interactive figure. Move the first slider to change the
+            smallest system size included in the fit, and watch how the estimated
+            exponent moves; the second slider only rescales the vertical axis so
+            the collapse is easier to see. The measurements are generated inside
+            the figure from a known exponent, so the demonstration contains no
+            project data.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Project summary</h2>
+        <p class="muted">
+          A one-page project summary is provided as a PDF when it can be released.
+          The file below is a placeholder that states the same thing.
+        </p>
+
+        <!-- 中文注释：PDF 上方永远放一个显眼的下载直链（移动端 Safari 内联体验差） -->
+        <p class="pdf-actions">
+          <a class="btn" href="../../assets/pdf/2025-project-scaling-summary.pdf" download>Download project summary (PDF)</a>
+          <span class="muted">Placeholder file &mdash; content available upon request</span>
+        </p>
+
+        <!-- 中文注释：优先用 <object>，失败时回落到提示 + 下载链接（渐进增强 + 优雅降级） -->
+        <div class="pdf-frame">
+          <object data="../../assets/pdf/2025-project-scaling-summary.pdf" type="application/pdf">
+            <p>
+              Your browser cannot display this PDF inline.
+              <a href="../../assets/pdf/2025-project-scaling-summary.pdf" download>Download the project summary</a>.
+            </p>
+          </object>
+        </div>
+      </section>
+
+      <p class="back-link">
+        <a href="../index.html">Back to research overview</a>
+        <span class="sep">|</span>
+        <a href="../../projects/index.html">Related project portfolio entry</a>
+      </p>
+    </main>
+
+    <footer class="site-foot">
+      <p>&copy; 2025 [Your Name]. Unpublished results are not described on this page.</p>
+      <p><a href="../../index.html">Home</a> <span class="sep">|</span> <a href="mailto:[email@example.com]">Contact</a></p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

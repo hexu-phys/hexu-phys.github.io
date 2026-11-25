@@ -1,0 +1,143 @@
+<!doctype html>
+<!-- 中文注释：
+  本页用途：Notes 栏目。存放技术笔记、方法说明、短科普等非论文内容。
+  维护要点：
+  1) 每条笔记用原生 <details class="disclosure"> 承载，无 JS 也能展开/收起。
+  2) 新增笔记：复制一个 <details> 块，按年份倒序放；同时在
+     research/notes/index.html 与 sitemap.xml 里登记。
+  3) 笔记内容必须已经过导师确认可公开；不确定就只写主题，不写结论。
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 中文注释：本栏目尚未定稿、暂时不对外，加 noindex 防止被搜索引擎收录；
+       恢复栏目时删掉这一行即可（同时把 sitemap 与导航改回来）。 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Notes — [Your Name]</title>
+  <meta name="description" content="Short technical notes and method explainers by [Your Name] on numerical simulation, uncertainty quantification, and reproducible analysis.">
+  <link rel="canonical" href="https://hexu-phys.github.io/notes/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="[Your Name]">
+  <meta property="og:title" content="Notes — [Your Name]">
+  <meta property="og:description" content="Short technical notes and method explainers on numerical simulation and reproducible analysis.">
+  <meta property="og:url" content="https://hexu-phys.github.io/notes/">
+  <meta property="og:image" content="https://hexu-phys.github.io/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="site-head">
+      <h1>Notes</h1>
+      <p class="identity">Short technical notes and method explainers</p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../research/index.html">Research</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="../cv/index.html">CV</a></li>
+          <li><a href="index.html" aria-current="page">Notes</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section aria-labelledby="intro-heading">
+        <h2 id="intro-heading">About these notes</h2>
+        <p>
+          These are working notes about methods rather than results: how I set up a
+          numerical measurement, how I estimate uncertainty, and how I keep an
+          analysis reproducible. They are written for a reader who knows the basics
+          of [Research Area] but not the specifics of my projects.
+        </p>
+        <p class="muted">
+          Notes that describe unpublished results are not posted here. If you would
+          like to discuss one of the topics below in detail, please
+          <a href="mailto:[email@example.com]">get in touch</a>.
+        </p>
+      </section>
+
+      <section aria-labelledby="list-heading">
+        <h2 id="list-heading">Notes</h2>
+
+        <details class="disclosure">
+          <summary>Estimating an exponent from a system-size series</summary>
+          <p class="muted">Method note &middot; 2025 &middot; 6 min read</p>
+          <p>
+            When a quantity is measured on a series of finite systems, the estimate
+            of an exponent depends on which sizes are included and how the fit is
+            weighted. This note walks through a practical procedure: choose the size
+            range from a residual analysis rather than by eye, treat the smallest
+            sizes as correction terms instead of data, and report a confidence
+            interval obtained by resampling the underlying measurements rather than
+            the fitted points.
+          </p>
+          <ul>
+            <li>Convert each run into a measurement with an error bar before fitting.</li>
+            <li>Fit with an explicit correction term; compare against the uncorrected fit.</li>
+            <li>Report the systematic spread across fit windows alongside the statistical error.</li>
+          </ul>
+        </details>
+
+        <details class="disclosure">
+          <summary>Separating statistical from systematic uncertainty</summary>
+          <p class="muted">Method note &middot; 2024 &middot; 5 min read</p>
+          <p>
+            Error bars that combine everything into one number hide the decisions
+            that produced them. I keep the two contributions in separate columns
+            through the whole pipeline, and only combine them at the final table,
+            so that a change in one source does not silently rescale the other.
+          </p>
+          <ul>
+            <li>Statistical: bootstrap over independent samples or trajectories.</li>
+            <li>Systematic: vary analysis choices one at a time and record the spread.</li>
+            <li>Report both, plus the number of independent samples behind each estimate.</li>
+          </ul>
+        </details>
+
+        <details class="disclosure">
+          <summary>A minimal reproducibility checklist for numerical projects</summary>
+          <p class="muted">Practice note &middot; 2023 &middot; 4 min read</p>
+          <p>
+            A short checklist I run before calling an analysis finished. It is
+            deliberately boring: the goal is that someone else, or my future self,
+            can regenerate every figure in the time it takes to make coffee.
+          </p>
+          <ul>
+            <li>One documented entry point; no manual intermediate steps.</li>
+            <li>Configuration in a file, not in the shell history.</li>
+            <li>Every figure produced by a script and listed in a figure manifest.</li>
+            <li>Environment pinned, with versions recorded next to the run log.</li>
+            <li>Raw output treated as read-only; derived quantities written to a separate directory.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section aria-labelledby="related-heading">
+        <h2 id="related-heading">Related pages</h2>
+        <ul>
+          <li><a href="../research/2025-project-scaling/index.html">Finite-size scaling of [Observable]</a> — the project these notes grew out of.</li>
+          <li><a href="../research/2024-project-method/index.html">Reproducible pipeline for [Method]</a>.</li>
+          <li><a href="../research/notes/index.html">Research notes index</a>.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <p>&copy; 2025 [Your Name]. Notes describe methods, not unpublished results.</p>
+      <p><a href="../index.html">Home</a> <span class="sep">|</span> <a href="../research/index.html">Research</a> <span class="sep">|</span> <a href="mailto:[email@example.com]">Contact</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
